@@ -4,7 +4,7 @@ services:
     restart: always
     shm_size: 128mb
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
@@ -18,7 +18,7 @@ services:
     env_file:
       - ./backend/.env
     volumes:
-      - ./backend:/app
+      - backend:/app
     ports:
       - '8000:8000'
     environment:
@@ -36,6 +36,11 @@ services:
       - 4200:4200
     command: bash -c "npm install && npm i -g @angular/cli@latest && ng serve --host 0.0.0.0 --port 4200"
     volumes:
-      - ./frontend:/app
+      - frontend:/app
     depends_on:
       - backend
+
+volumes:
+  db-data:
+  frontend:
+  backend:      
