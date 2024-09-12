@@ -4,7 +4,7 @@ services:
     restart: always
     shm_size: 128mb
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - data-db:/var/lib/postgresql/data
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
@@ -14,11 +14,14 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py collectstatic --noinput &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     env_file:
       - ./backend/.env
     volumes:
-      - backend:/app
+      - ./backend:/app
     ports:
       - '8000:8000'
     environment:
@@ -27,20 +30,5 @@ services:
       - POSTGRES_DB=default_db
     depends_on:
       - db
-
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - 4200:4200
-    command: bash -c "npm install && npm i -g @angular/cli@latest && ng serve --host 0.0.0.0 --port 4200"
-    volumes:
-      - frontend:/app
-    depends_on:
-      - backend
-
 volumes:
-  db-data:
-  frontend:
-  backend:      
+  data-db:
