@@ -5,7 +5,7 @@ def register(request):
     #todo: check if all data are correct
     #todo: create user
     #todo: return user
-    return HttpResponse("teste")
+    return HttpResponse(b"teste")
 
 def login(request):
     #authentication

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+{% if user.is_authenticated %}
+Olá {{ user.username}}!
+<p><a href="{% url 'password_change' %}">Password Change</a></p>
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Sair</button>
+</form>
+{% else %}
+<p>Você não está logado</p>
+<p><a href="{% url 'password_reset' %}">Resetar Senha</a></p>
+<p><a href="{% url 'login' %}">Log In</a></p>
+{% endif %}
+{% endblock %}

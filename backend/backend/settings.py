@@ -37,6 +37,7 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+email_backend = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 
@@ -47,7 +48,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
+    'app',
+    'user_accounts'
 ]
 
 MIDDLEWARE = [
@@ -139,4 +141,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-login_redirect_url = "/"
+LOGIN_REDIRECT_URL = "user_dashboard"
+LOGOUT_REDIRECT_URL = "user_dashboard"
