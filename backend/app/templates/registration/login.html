@@ -1,17 +1,45 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Login - AWS Customer Support{% endblock %}
 
 {% block content %}
-{% if form.errors %}
-<p>login/senha incorreta. Tente novamente.</p>
-{% endif %}
+<div class="main-container">
+  <div class="nav-bar">
+    <img src="{% static 'images/Logo-AWS-color.png' %}" alt="AWS Logo" class="logo">
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#">Sobre</a>
+      <a href="#">Contato</a>
+    </nav>
+  </div>
 
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form }}
-  <button type="submit">Log In</button>
-</form>
-<p><a href="{% url 'password_reset' %}">Esqueceu a senha?</a></p>
+  <div class="content">
+    <div class="left-side">
+      <h1>AWS</h1>
+      <p class="sub-heading">customer support</p>
+      <p>Presta serviços e apoio ao cliente nas áreas da Aeronáutica, Automação Industrial e representações nacionais e
+        internacionais. A equipe de AWS GROUP - CUSTOMER SUPPORT é composta por profissionais com mais de 15 anos de
+        experiência dedicados à prestação de serviços nas áreas de Aviação, Automação e Representações.</p>
+    </div>
+    <div class="right-side">
+      <form method="post" class="login-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="E-mail" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" name="password" placeholder="Senha" required>
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <div class="links">
+        <a href="#">Cadastre-se</a>
+        <a href="#">Esqueceu a senha?</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
