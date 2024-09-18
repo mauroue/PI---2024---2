@@ -1,10 +1,9 @@
 from django.db import models
-from django.db.models.fields.related import RelatedField
 
-from backend.cadastro.models.users import User
+from app.models.user import AppUser
 
 
 class Visa(models.Model):
     due_date = models.DateField()
     country = models.CharField(max_length=2)
-    user = RelatedField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(AppUser, on_delete=models.CASCADE)
