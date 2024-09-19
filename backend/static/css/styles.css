@@ -1,0 +1,140 @@
+/* accounts/static/css/styles.css */
+
+/* Reseta os estilos padrão do navegador */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Contêiner principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
+
+/* Barra de navegação */
+.nav-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5faff;
+}
+
+.logo {
+    width: 150px;
+}
+
+.menu a {
+    margin-right: 15px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Conteúdo */
+.content {
+    display: flex;
+    width: 80%;
+    max-width: 1200px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.left-side {
+    flex: 1;
+    padding: 40px;
+    background-color: #f5faff;
+}
+
+.left-side h1 {
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.left-side .sub-heading {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.left-side p {
+    margin-top: 10px;
+    line-height: 1.6;
+}
+
+/* Área de login */
+.right-side {
+    flex: 0.4;
+    padding: 40px;
+    background-color: #d6ebff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #0073e6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.login-btn:hover {
+    background-color: #005bb5;
+}
+
+.links {
+    margin-top: 20px;
+}
+
+.links a {
+    display: block;
+    text-decoration: none;
+    color: #0073e6;
+    margin-top: 5px;
+    text-align: center;
+}
+
+.overlayText {
+  position: absolute;
+  top: 30%;
+  left: 20%;
+  z-index: 1;
+}
