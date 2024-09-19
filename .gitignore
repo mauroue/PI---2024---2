@@ -3,3 +3,4 @@ backend/venv
 backend/.env
 backend/app/__pycache__
 backend/app/migrations/__pycache__
+backend/user_accounts/__pycache__
