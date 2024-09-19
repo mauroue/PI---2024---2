@@ -5,14 +5,6 @@
 
 {% block content %}
 <div class="main-container">
-  <div class="nav-bar">
-    <img src="{% static 'images/Logo-AWS-color.png' %}" alt="AWS Logo" class="logo">
-    <nav class="menu">
-      <a href="#">Home</a>
-      <a href="#">Sobre</a>
-      <a href="#">Contato</a>
-    </nav>
-  </div>
 
   <div class="content">
     <div class="left-side">
@@ -30,13 +22,11 @@
           <label for="{{ form.username.id_for_label }}">E-mail</label>
           {{ form.username }}
           {{ form.username.errors }}
-          <!-- <input type="email" id="email" name="email" placeholder="E-mail" required> -->
         </div>
         <div class="form-group">
           <label for="{{ form.password.id_for_label }}">Senha</label>
           {{ form.password }}
           {{ form.password.errors}}
-          <!-- <input type="password" id="password" name="password" placeholder="Senha" required> -->
         </div>
         <button type="submit" class="login-btn">Login</button>
       </form>

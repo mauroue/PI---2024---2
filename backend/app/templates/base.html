@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
+  <div class="nav-bar">
+    <img src="{% static 'images/Logo-AWS-color.png' %}" alt="AWS Logo" class="logo">
+    <nav class="menu">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="#">Sobre</a>
+      <a href="#">Contato</a>
+    </nav>
+  </div>
     {% block content %}{% endblock %}
 </body>
 </html>
