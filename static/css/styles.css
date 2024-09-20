@@ -138,7 +138,7 @@
 
 .overlayText {
   position: fixed;
-  top: 45%;
+  top: 35%;
   left: 10%;
   z-index: 1;
 }
