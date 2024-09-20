@@ -131,3 +131,18 @@
     margin-top: 5px;
     text-align: center;
 }
+
+#indexVideo {
+  position: relative;
+}
+
+.overlayText {
+  position: fixed;
+  top: 55%;
+  left: 10%;
+  z-index: 1;
+}
+
+.overlayText p {
+  color: white;
+}

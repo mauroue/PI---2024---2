@@ -5,31 +5,24 @@ services:
     restart: always
     shm_size: 128mb
     volumes:
-      - data-db:/var/lib/postgresql/data
+      - ./data/db:/var/lib/postgresql/data
     environment:
+      - POSTGRES_DB=default_db
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=default_db
+    ports:
+      - "5432:5432"
 
-  backend:
+  web:
     container_name: backend
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    command: >
-      sh -c "python manage.py collectstatic --noinput &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+    build: .
+    restart: always
     env_file:
-      - ./backend/.env
+      - .env
     volumes:
-      - ./backend:/app
+      - .:/code
     ports:
       - '8000:8000'
-    environment:
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=default_db
     depends_on:
       - db
 volumes:

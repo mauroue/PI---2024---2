@@ -4,3 +4,12 @@ backend/.env
 backend/app/__pycache__
 backend/app/migrations/__pycache__
 backend/user_accounts/__pycache__
+app/__pycache__
+app/forms/__pycache__
+app/migrations/__pycache__
+app/models/__pycache__
+backend/__pycache__
+backend/app/forms/__pycache__
+user_accounts/__pycache__
+user_accounts/migrations/__pycache__
+venv
