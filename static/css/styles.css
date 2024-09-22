@@ -1,11 +1,13 @@
 /* accounts/static/css/styles.css */
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
 /* Reseta os estilos padrão do navegador */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: "Roboto Flex", sans-serif;
 }
 
 /* Contêiner principal */
@@ -20,12 +22,14 @@
 
 /* Barra de navegação */
 .nav-bar {
-    width: 100%;
+    width: calc(100% - 6rem);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f5faff;
+    background-color: #38383a;
+    border-radius: 50px;
+    margin: 3rem;
 }
 
 .logo {
@@ -35,8 +39,19 @@
 .menu a {
     margin-right: 15px;
     text-decoration: none;
-    color: #333;
-    font-weight: bold;
+    color: #FFF;
+    font-weight: 500;
+}
+.signupButton {
+  color: #fff;
+  padding: 1.2rem;
+  border-radius: 30px;
+  background-color: #946d00;
+  border-width: 1px;
+  border: solid #af8100;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
 }
 
 /* Conteúdo */
@@ -141,8 +156,17 @@
   top: 40%;
   left: 10%;
   z-index: 1;
+
 }
 
 .overlayText p {
   color: white;
 }
+
+.overlayText h1 {
+  color: white;
+  font-family: "Roboto Flex", sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
