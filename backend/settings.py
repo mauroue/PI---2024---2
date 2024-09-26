@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
-    'user_accounts'
+    'backend'
 ]
 
 MIDDLEWARE = [
@@ -131,3 +131,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "user_dashboard"
 LOGOUT_REDIRECT_URL = "user_dashboard"
+AUTH_USER_MODEL = "app.User"

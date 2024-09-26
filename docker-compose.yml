@@ -5,7 +5,7 @@ services:
     restart: always
     shm_size: 128mb
     volumes:
-      - ./data/db:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     environment:
       - POSTGRES_DB=app
       - POSTGRES_USER=app
@@ -27,4 +27,4 @@ services:
     depends_on:
       - db
 volumes:
-  data-db:
+  postgres_data:
