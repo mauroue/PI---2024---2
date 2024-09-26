@@ -1,73 +1,32 @@
 <!-- register.html -->
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}Cadastro Usuário{% endblock %}
 
 {% block content %}
 <div class="container">
-    <h2 class="text-center">Cadastro de Usuário</h2>
-    <form method="post" action="" aria-labelledby="registration-form">
-        {% csrf_token %}
+    <main>
+        <div class="row g-5">
+            <div class="">
+                <h4 class="mb-3">Cadastro de Usuário</h4>
+                <form class="needs-validation" method="post" action="" aria-labelledby="registration-form">
+                    {% csrf_token %}
 
-        <div class="form-group">
-            <label for="id_name">Nome Completo:</label>
-            {{ form.name }}
-            {{ form.name.errors }}
+                    <div class="row g-3">
+                        {{ form|crispy }}
+
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+
+                    </div>
+                </form>
+                <div class="text-center mt-3">
+                    <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login aqui</a>.</p>
+                </div>
+            </div>
         </div>
-        
-        <div class="form-group">
-            <label for="id_email">Email:</label>
-            {{ form.email }}
-            {{ form.email.errors }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_password1">Senha:</label>
-            {{ form.password1 }}
-            {{ form.password1.errors }}
-        </div>
-
-        <div class="form-group">
-            <label for="id_password2">Confirme a Senha:</label>
-            {{ form.password2 }}
-            {{ form.password2.errors }}
-        </div>
-
-
-        <div class="form-group">
-            <label for="id_dob">Data de Nascimento:</label>
-            {{ form.dob }}
-            {{ form.dob.errors }}
-        </div>
-
-        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
-    </form>
-    <div class="text-center mt-3">
-        <p>Já tem uma conta? <a href="{% url 'login' %}">Faça login aqui</a>.</p>
-    </div>
+    </main>
 </div>
 
-<style>
-    body {
-        background-color: #f8f9fa;
-    }
-    .container {
-        max-width: 600px;
-        margin: 50px auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h2 {
-        margin-bottom: 20px;
-    }
-    .form-group {
-        margin-bottom: 15px;
-    }
-    .btn {
-        margin-top: 10px;
-    }
-</style>
 {% endblock %}

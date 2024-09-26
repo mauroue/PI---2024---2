@@ -20,11 +20,17 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='index.html'), name="index"),
+    # url files
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('dashboard/', TemplateView.as_view(template_name='dashboard/home.html'), name="user_dashboard"),
+
+    # views
+    path('dashboard/update/', update_user_info, name='update_user_info'), 
     path('register/', RegisterView.as_view(), name='register'),
     path('signup/', RegisterView.as_view(), name='signup'),
-    path('dashboard/update/', update_user_info, name='update_user_info'), 
+
+    # templates
+    path('', TemplateView.as_view(template_name='index.html'), name="index"),
+    # path('login/', TemplateView.as_view(template_name="login.html"), name="login"),
+    path('dashboard/', TemplateView.as_view(template_name='dashboard/home.html'), name="user_dashboard"),
 ]
