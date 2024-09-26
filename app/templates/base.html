@@ -1,28 +1,22 @@
 <!-- base.html -->
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Título{% endblock %}</title>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
-  <div class="nav-bar">
-    <img src="{% static 'images/Logo-AWS-color.png' %}" alt="AWS Logo" class="logo">
-    <nav class="menu">
-      <a href="{% url 'index' %}">Home</a>
-      <a href="#">Serviços</a>
-      <a href="#">Contato</a>
-    </nav>
-      <a href="{% url 'register' %}" class="signupButton">Cadastre-se</a>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>{% block title %}Título{% endblock %}</title>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  </head>
+{% if request.user.is_authenticated %}
+  {% include "dashboard/header.html" %}
+{% else %}
+  {% include "components/header.html"%}
+{% endif %}
 
-  </div>
-    {% block content %}{% endblock %}
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+
+  <body class="container">
+      {% block content %}{% endblock %}
+  </body>
+
+{% include "components/footer.html" %}
+
+  <script src="{% static 'js/bootstrap.bundle.js'%}"></script>

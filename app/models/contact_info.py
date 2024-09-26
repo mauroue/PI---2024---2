@@ -7,5 +7,4 @@ from django.db.models.fields.related import RelatedField
 class ContactInfo(models.Model):
     phone = models.CharField(max_length=13)
     phone_alt = models.CharField(max_length=13)
-    email = models.CharField(max_length=100)
     user = RelatedField(User, on_delete=models.CASCADE)
