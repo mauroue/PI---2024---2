@@ -1,4 +1,4 @@
-from app import models
+from django.db import models
 from app.models.users import User
 from app.models.work_requests import WorkRequest
 

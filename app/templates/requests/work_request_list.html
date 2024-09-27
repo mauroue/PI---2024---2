@@ -30,6 +30,11 @@
                         data-bs-target="#cancelModal" data-work-request-id="{{ work_request.id }}">
                         Cancel
                     </button>
+                    {% else %}
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#applyModal" data-work-request-id="{{ work_request.id }}">
+                        Apply
+                    </button>
                     {% endif %}
                 </td>
             </tr>
@@ -49,6 +54,14 @@
             var workRequestId = button.getAttribute('data-work-request-id');
             var form = document.getElementById('cancelForm');
             form.action = '/work_requests/' + workRequestId + '/cancel/';
+        });
+
+        var applyModal = document.getElementById('applyModal');
+        applyModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var workRequestId = button.getAttribute('data-work-request-id');
+            var form = document.getElementById('applyForm');
+            form.action = '/work_requests/' + workRequestId + '/apply/';  // Update this URL to your apply endpoint
         });
     });
 </script>

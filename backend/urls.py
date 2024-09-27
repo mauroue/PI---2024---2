@@ -17,6 +17,7 @@ Including another URLconf
 
 from app.views import (
     RegisterView,
+    apply_work_request,
     update_user_info,
     list_work_request,
     cancel_work_request,
@@ -63,5 +64,8 @@ urlpatterns = [
         "work_requests/<int:pk>/cancel/",
         cancel_work_request,
         name="cancel_work_request",
+    ),
+    path(
+        "work_requests/<int:pk>/apply/", apply_work_request, name="apply_work_request"
     ),
 ]

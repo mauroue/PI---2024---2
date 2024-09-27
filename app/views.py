@@ -6,6 +6,7 @@ from app.forms.update_user_info import UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from app.forms.work_request_form import WorkRequestForm
 from app.models.work_requests import WorkRequest
+from app.models.work_user_proposals import WorkUserProposal
 
 
 class RegisterView(CreateView):
@@ -55,3 +56,16 @@ def cancel_work_request(request, pk):
         work_request.status = "cancelled"
         work_request.save()
     return redirect("list_work_request")
+
+
+@login_required
+def apply_work_request(request, pk):
+    work_request = get_object_or_404(WorkRequest, pk=pk)
+    if request.method == "POST":
+        # Create a new WorkUserProposal instance
+        WorkUserProposal.objects.create(
+            work_request=work_request,
+            user=request.user,
+            proposal_text="Application for the work request.",
+        )
+    return redirect("work_request_list")
