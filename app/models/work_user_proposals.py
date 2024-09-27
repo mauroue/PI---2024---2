@@ -9,6 +9,7 @@ class WorkUserProposal(models.Model):
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     proposal_text = models.TextField()
+    cost = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
