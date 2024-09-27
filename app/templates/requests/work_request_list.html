@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Work Requests{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Work Requests</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Requester</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for work_request in work_requests %}
+            <tr>
+                <td>{{ work_request.title }}</td>
+                <td>{{ work_request.description }}</td>
+                <td>{{ work_request.status }}</td>
+                <td>{{ work_request.requester.username }}</td>
+                <td>{{ work_request.created_at }}</td>
+                <td>
+                    {% if work_request.requester == request.user %}
+                    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                        data-bs-target="#cancelModal" data-work-request-id="{{ work_request.id }}">
+                        Cancel
+                    </button>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Include the Cancel Modal -->
+{% include 'components/cancel_modal.html' %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var cancelModal = document.getElementById('cancelModal');
+        cancelModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var workRequestId = button.getAttribute('data-work-request-id');
+            var form = document.getElementById('cancelForm');
+            form.action = '/work_requests/' + workRequestId + '/cancel/';
+        });
+    });
+</script>
+{% endblock %}

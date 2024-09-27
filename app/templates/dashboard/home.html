@@ -9,6 +9,10 @@ Olá {{ user.username}}!
 <p><a href="{% url 'password_change' %}">Password Change</a></p>
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}
+
+  <a href="{% url 'work_request_list' %}">list work request</a>
+  <a href="{% url 'work_request_create' %}">create work request</a>
+
   <button type="submit">Sair</button>
 </form>
 {% else %}
