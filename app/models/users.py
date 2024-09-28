@@ -33,12 +33,6 @@ class User(AbstractUser):
     cpf = models.CharField(max_length=11, blank=False, null=False, unique=True)
     rg = models.CharField(max_length=20, null=False, blank=False)
     email = models.CharField(max_length=100, unique=True)
-    visa = models.ForeignKey(
-        "Visa", on_delete=models.SET_NULL, null=True, related_name="users"
-    )
-    address = models.ForeignKey(
-        "Address", on_delete=models.SET_NULL, null=True, related_name="users"
-    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name", "dob"]
