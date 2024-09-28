@@ -7,7 +7,6 @@ from app.models.work_requests import WorkRequest
 from app.models.work_user_proposals import WorkUserProposal
 from django.contrib.auth import login
 from app.models.files import Files
-from app.forms.file_upload import FileUploadForm
 
 
 @login_required
@@ -82,19 +81,16 @@ def register_view(request):
 @login_required
 def user_profile(request):
     if request.method == "POST" and request.FILES.get("profile_image"):
-        # Create a new Files instance for the profile image
         profile_image_file = Files(
             user=request.user,
             upload_to=request.FILES["profile_image"],
             doc_type="profile",
         )
-        profile_image_file.save()  # Save the profile image
+        profile_image_file.save()
 
-        return redirect("user_profile")  # Redirect to the same page to see the changes
+        return redirect("user_profile")
 
-    user_files = Files.objects.filter(
-        user=request.user
-    )  # Retrieve files associated with the user
+    user_files = Files.objects.filter(user=request.user)
     profile_image = user_files.filter(doc_type="profile").first()
     return render(
         request,
