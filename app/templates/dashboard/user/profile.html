@@ -1,1 +1,38 @@
-{% extends "base.html "%}
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Perfil do Usuário{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h3>@{{ user.username }}</h3>
+        <p>Email: {{ user.email }}</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="fileUpload" class="form-label">Carregar Arquivo</label>
+            <input type="file" class="form-control" id="fileUpload" name="upload_to" accept="*/*">
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar Arquivo</button>
+    </form>
+
+    <h4>Arquivos Carregados:</h4>
+    <ul>
+        {% for file in user_files %}
+        <li>
+            <a href="{{ file.upload_to.url }}">{{ file.upload_to.name }}</a>
+        </li>
+        {% empty %}
+        <li>Nenhum arquivo carregado.</li>
+        {% endfor %}
+    </ul>
+
+    <div class="text-center">
+        <a href="{% url 'password_change' %}" class="btn btn-link">Trocar Senha</a>
+        <a href="{% url 'update_user_info' %}" class="btn btn-link">Alterar Informações</a>
+    </div>
+</div>
+{% endblock %}

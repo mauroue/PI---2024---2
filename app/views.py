@@ -6,6 +6,8 @@ from app.forms.work_request_form import WorkRequestForm
 from app.models.work_requests import WorkRequest
 from app.models.work_user_proposals import WorkUserProposal
 from django.contrib.auth import login
+from app.models.files import Files
+from app.forms.file_upload import FileUploadForm
 
 
 @login_required
@@ -75,3 +77,24 @@ def register_view(request):
         form = UserRegistrationForm()
 
     return render(request, "registration/register.html", {"form": form})
+
+
+@login_required
+def user_profile(request):
+    user = request.user
+    if request.method == "POST":
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file_instance = form.save(commit=False)
+            file_instance.user = user  # Associate the file with the user
+            file_instance.save()
+            return redirect("user_profile")
+    else:
+        form = FileUploadForm()
+
+    user_files = Files.objects.filter(
+        user=user
+    )  # Retrieve files associated with the user
+    return render(
+        request, "dashboard/user/profile.html", {"form": form, "user_files": user_files}
+    )

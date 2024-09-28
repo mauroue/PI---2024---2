@@ -15,18 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
 from app.views import (
     apply_work_request,
     register_view,
     update_user_info,
     list_work_request,
     cancel_work_request,
+    user_profile,
 )
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
 from django.views.generic.base import TemplateView
 from app.views import create_work_request
+from django.conf.urls.static import static
 
 urlpatterns = [
     # url files
@@ -67,4 +70,8 @@ urlpatterns = [
     path(
         "work_requests/<int:pk>/apply/", apply_work_request, name="apply_work_request"
     ),
+    path("profile/", user_profile, name="user_profile"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
