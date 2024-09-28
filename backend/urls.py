@@ -71,6 +71,11 @@ urlpatterns = [
         "work_requests/<int:pk>/apply/", apply_work_request, name="apply_work_request"
     ),
     path("profile/", user_profile, name="user_profile"),
+    path(
+        "login/",
+        auth_views.LoginView.as_view(template_name="registration/login.html"),
+        name="login",
+    ),
 ]
 
 if settings.DEBUG:
