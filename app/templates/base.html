@@ -9,7 +9,7 @@
 </head>
 
 {% if request.user.is_authenticated %}
-{% include "dashboard/header.html" %}
+{% include "dashboard/header.html" with user=request.user %}
 {% else %}
 {% include "components/header.html"%}
 {% endif %}

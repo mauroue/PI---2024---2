@@ -81,20 +81,23 @@ def register_view(request):
 
 @login_required
 def user_profile(request):
-    user = request.user
-    if request.method == "POST":
-        form = FileUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            file_instance = form.save(commit=False)
-            file_instance.user = user  # Associate the file with the user
-            file_instance.save()
-            return redirect("user_profile")
-    else:
-        form = FileUploadForm()
+    if request.method == "POST" and request.FILES.get("profile_image"):
+        # Create a new Files instance for the profile image
+        profile_image_file = Files(
+            user=request.user,
+            upload_to=request.FILES["profile_image"],
+            doc_type="profile",
+        )
+        profile_image_file.save()  # Save the profile image
+
+        return redirect("user_profile")  # Redirect to the same page to see the changes
 
     user_files = Files.objects.filter(
-        user=user
+        user=request.user
     )  # Retrieve files associated with the user
+    profile_image = user_files.filter(doc_type="profile").first()
     return render(
-        request, "dashboard/user/profile.html", {"form": form, "user_files": user_files}
+        request,
+        "dashboard/user/profile.html",
+        {"user_files": user_files, "profile_image": profile_image},
     )

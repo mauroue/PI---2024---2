@@ -9,7 +9,10 @@ def user_directory_path(instance, filename):
 
 
 class Files(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="profile_image"
+    )
     upload_to = models.FileField(upload_to=user_directory_path)
     secure = models.BooleanField(default=False)
     lgpd = models.BooleanField(default=False)
+    doc_type = models.CharField(max_length=30, default="other")

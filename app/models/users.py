@@ -35,7 +35,12 @@ class User(AbstractUser):
     email = models.CharField(max_length=100, unique=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name", "dob"]
+    REQUIRED_FIELDS = ["name", "dob", "cpf"]  # Add CPF to required fields
+
+    @property
+    def profile_image_path(self):
+        profile_image = self.profile_image.last()
+        return profile_image.upload_to.url if profile_image else None
 
     def user_directory_path(self, filename):
         return f"media/user_storage/user_{self.pk}/{filename}"
