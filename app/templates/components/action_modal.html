@@ -1,19 +1,19 @@
-<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+<div class="modal fade" id="actionModal" tabindex="-1" aria-labelledby="actionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cancelModalLabel">Cancel Work Request</h5>
+                <h5 class="modal-title" id="actionModalLabel">Placeholder Label</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                Are you sure you want to cancel this work request?
+            <div id="modalMessage" class="modal-body">
+                Placeholder Message
             </div>
             <div class="modal-footer">
-                <form id="cancelForm" method="post" action="">
+                <form id="actionForm" method="post" action="">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Yes, Cancel</button>
+                    <button id="confirmButton" type="submit" class="btn btn-danger">Sim</button>
                 </form>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Go Back</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não, voltar</button>
             </div>
         </div>
     </div>

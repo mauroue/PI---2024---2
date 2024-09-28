@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}Work Requests{% endblock %}
+{% block title %}Tarefas Disponíveis{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Work Requests</h2>
+    <h2 class="text-center mb-4">Tarefas Disponíveis</h2>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Description</th>
+                <th>Título</th>
+                <th>Descrição</th>
                 <th>Status</th>
-                <th>Requester</th>
-                <th>Created At</th>
-                <th>Actions</th>
+                <th>Requerente</th>
+                <th>Criado</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -28,12 +28,12 @@
                     {% if work_request.requester == request.user %}
                     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
                         data-bs-target="#actionModal" data-action="cancel" data-work-request-id="{{ work_request.id }}">
-                        Cancel
+                        Cancelar
                     </button>
                     {% else %}
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
                         data-bs-target="#actionModal" data-action="apply" data-work-request-id="{{ work_request.id }}">
-                        Apply
+                        Aplicar
                     </button>
                     {% endif %}
                 </td>
@@ -43,31 +43,5 @@
     </table>
 </div>
 
-{% include 'components/action_modal.html' %}
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var actionModal = document.getElementById('actionModal');
-        actionModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget; // Button that triggered the modal
-            var action = button.getAttribute('data-action'); // Extract action from data-* attributes
-            var workRequestId = button.getAttribute('data-work-request-id'); // Extract work request ID
-
-            var form = document.getElementById('actionForm');
-            var modalMessage = document.getElementById('modalMessage');
-            var confirmButton = document.getElementById('confirmButton');
-
-            // Set the form action based on the action type
-            if (action === 'cancel') {
-                modalMessage.textContent = 'Are you sure you want to cancel this work request?';
-                form.action = '/work_requests/' + workRequestId + '/cancel/'; // Update this URL to your cancel endpoint
-                confirmButton.textContent = 'Yes, Cancel';
-            } else if (action === 'apply') {
-                modalMessage.textContent = 'Are you sure you want to apply for this work request?';
-                form.action = '/work_requests/' + workRequestId + '/apply/'; // Update this URL to your apply endpoint
-                confirmButton.textContent = 'Yes, Apply';
-            }
-        });
-    });
-</script>
 {% endblock %}

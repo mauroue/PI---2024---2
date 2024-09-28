@@ -1,23 +1,58 @@
 <!-- base.html -->
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>{% block title %}Título{% endblock %}</title>
-      {% load static %}
-      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-  </head>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Título{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
 
 {% if request.user.is_authenticated %}
-  {% include "dashboard/header.html" %}
+{% include "dashboard/header.html" %}
 {% else %}
-  {% include "components/header.html"%}
+{% include "components/header.html"%}
 {% endif %}
 
 
-  <body class="container">
-      {% block content %}{% endblock %}
-  </body>
+<body class="container">
+  {% block content %}{% endblock %}
+</body>
 
 {% include "components/footer.html" %}
+{% include 'components/action_modal.html' %}
 
-  <script src="{% static 'js/bootstrap.bundle.js'%}"></script>
+<script src="{% static 'js/bootstrap.bundle.js'%}"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var actionModal = document.getElementById('actionModal');
+    actionModal.addEventListener('show.bs.modal', function (event) {
+      var button = event.relatedTarget;
+      var action = button.getAttribute('data-action');
+      var workRequestId = button.getAttribute('data-work-request-id');
+
+      var form = document.getElementById('actionForm')
+      var modalLabel = document.getElementById('actionModalLabel');
+      var modalMessage = document.getElementById('modalMessage');
+      var confirmButton = document.getElementById('confirmButton');
+
+      if (action === 'cancel') {
+        modalLabel.textContent = 'Cancelar';
+        modalMessage.textContent = 'Você tem certeza de que deseja cancelar esta solicitação de trabalho?';
+        form.action = '/work_requests/' + workRequestId + '/cancel/';
+        confirmButton.textContent = 'Sim, Cancelar';
+      } else if (action === 'apply') {
+        modalLabel.textContent = 'Aplicar';
+        modalMessage.textContent = 'Você tem certeza de que deseja se candidatar a esta solicitação de trabalho?';
+        form.action = '/work_requests/' + workRequestId + '/apply/';
+        confirmButton.textContent = 'Sim, Aplicar';
+      } else if (action === 'logout') {
+        modalLabel.textContent = 'Sair';
+        modalMessage.textContent = 'Você tem certeza de que deseja sair?';
+        form.action = '/';
+        confirmButton.textContent = 'Sim, Sair';
+      }
+    });
+  });
+</script>

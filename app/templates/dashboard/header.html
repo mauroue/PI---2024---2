@@ -17,7 +17,7 @@
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-        <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
+        <input type="search" class="form-control" placeholder="Pesquisar..." aria-label="Search">
       </form>
 
       <div class="dropdown text-end">
@@ -32,10 +32,12 @@
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
+          <li><button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#actionModal"
+              data-action="logout">Sair</button></li>
         </ul>
       </div>
     </div>
   </div>
 </header>
+
 {% endblock %}

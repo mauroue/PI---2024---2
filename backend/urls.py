@@ -16,8 +16,8 @@ Including another URLconf
 """
 
 from app.views import (
-    RegisterView,
     apply_work_request,
+    register_view,
     update_user_info,
     list_work_request,
     cancel_work_request,
@@ -34,8 +34,8 @@ urlpatterns = [
     path("accounts/", include("django.contrib.auth.urls")),
     # views
     path("dashboard/update/", update_user_info, name="update_user_info"),
-    path("register/", RegisterView.as_view(), name="register"),
-    path("signup/", RegisterView.as_view(), name="signup"),
+    path("register/", register_view, name="register"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
         "password_change/",
         auth_views.PasswordChangeView.as_view(
@@ -52,7 +52,6 @@ urlpatterns = [
     ),
     # templates
     path("", TemplateView.as_view(template_name="index.html"), name="index"),
-    # path('login/', TemplateView.as_view(template_name="login.html"), name="login"),
     path(
         "dashboard/",
         TemplateView.as_view(template_name="dashboard/home.html"),

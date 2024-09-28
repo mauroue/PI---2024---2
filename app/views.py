@@ -1,18 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
 from app.forms.register import UserRegistrationForm
 from app.forms.update_user_info import UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from app.forms.work_request_form import WorkRequestForm
 from app.models.work_requests import WorkRequest
 from app.models.work_user_proposals import WorkUserProposal
-
-
-class RegisterView(CreateView):
-    form_class = UserRegistrationForm
-    template_name = "registration/register.html"
-    success_url = reverse_lazy("login")
+from django.contrib.auth import login
 
 
 @login_required
@@ -21,7 +14,7 @@ def update_user_info(request):
         form = UserUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect("dashboard")  # Redirect to the dashboard or another page
+            return redirect("dashboard")
     else:
         form = UserUpdateForm(instance=request.user)
     return render(request, "dashboard.html", {"form": form})
@@ -35,7 +28,7 @@ def create_work_request(request):
             work_request = form.save(commit=False)
             work_request.requester = request.user
             work_request.save()
-            return redirect("list_work_request")  # Redirect to the list view
+            return redirect("list_work_request")
     else:
         form = WorkRequestForm()
     return render(request, "requests/work_request_create.html", {"form": form})
@@ -69,3 +62,16 @@ def apply_work_request(request, pk):
             proposal_text="Application for the work request.",
         )
     return redirect("work_request_list")
+
+
+def register_view(request):
+    if request.method == "POST":
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect("home")
+    else:
+        form = UserRegistrationForm()
+
+    return render(request, "registration/register.html", {"form": form})
