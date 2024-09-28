@@ -127,7 +127,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "user_storage")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 LOGIN_REDIRECT_URL = "user_dashboard"
-LOGOUT_REDIRECT_URL = "user_dashboard"
+LOGOUT_REDIRECT_URL = "index"
 AUTH_USER_MODEL = "app.User"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
