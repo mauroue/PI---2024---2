@@ -8,3 +8,4 @@ user_accounts/__pycache__
 user_accounts/migrations/__pycache__
 venv
 .data/db
+.user_storage

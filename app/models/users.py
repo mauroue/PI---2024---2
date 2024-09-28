@@ -1,5 +1,3 @@
-from app.models.address import Address
-from app.models.visa import Visa
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
