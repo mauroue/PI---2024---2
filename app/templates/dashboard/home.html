@@ -14,8 +14,6 @@ Olá {{ user.username}}!
 
   <button type="submit">Sair</button>
 </form>
-<a href="{% url 'work_request_list' %}">list work request</a>
-<a href="{% url 'work_request_create' %}">create work request</a>
 {% else %}
 <p>Você não está logado</p>
 <p><a href="{% url 'password_reset' %}">Resetar Senha</a></p>
