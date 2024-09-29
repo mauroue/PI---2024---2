@@ -18,7 +18,7 @@ def update_user_info(request):
             return redirect("dashboard")
     else:
         form = UserUpdateForm(instance=request.user)
-    return render(request, "dashboard.html", {"form": form})
+    return render(request, "dashboard/user/update_user_info.html", {"form": form})
 
 
 @login_required
