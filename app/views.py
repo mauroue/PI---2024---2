@@ -62,7 +62,7 @@ def apply_work_request(request, pk):
             user=request.user,
             proposal_text="Application for the work request.",
         )
-    return redirect("work_request_list")
+    return redirect("list_work_request")
 
 
 def register_view(request):

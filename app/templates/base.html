@@ -16,17 +16,10 @@
 {% include "components/header.html"%}
 {% endif %}
 
-
 <div class="container">
-  <div class="row">
-    <div class="col-2">
-      {% include 'components/sidebar.html' %}
-    </div>
-    <div class="col-8">
-      {% block content %}{% endblock %}
-    </div>
-  </div>
+{% block content %}{% endblock %}
 </div>
+
 {% include "components/footer.html" %}
 {% include 'components/action_modal.html' %}
 
