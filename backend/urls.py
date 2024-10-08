@@ -19,9 +19,9 @@ from django.conf import settings
 from app.views import (
     apply_work_request,
     register_view,
-    update_user_info,
     list_work_request,
     cancel_work_request,
+    upload_file,
     user_profile,
 )
 from django.contrib import admin
@@ -36,7 +36,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("accounts/", include("django.contrib.auth.urls")),
     # views
-    path("dashboard/update/", update_user_info, name="update_user_info"),
     path("register/", register_view, name="register"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(
@@ -76,6 +75,7 @@ urlpatterns = [
         auth_views.LoginView.as_view(template_name="registration/login.html"),
         name="login",
     ),
+    path("upload-file/", upload_file, name="upload_file"),
 ]
 
 if settings.DEBUG:

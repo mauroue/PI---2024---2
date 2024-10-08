@@ -1,12 +1,17 @@
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms.register import UserRegistrationForm
 from app.forms.update_user_info import UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from app.forms.work_request_form import WorkRequestForm
+from app.models.documents import Documents
 from app.models.work_requests import WorkRequest
 from app.models.work_user_proposals import WorkUserProposal
 from django.contrib.auth import login
 from app.models.files import Files
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 @login_required
@@ -81,19 +86,45 @@ def register_view(request):
 @login_required
 def user_profile(request):
     if request.method == "POST" and request.FILES.get("profile_image"):
-        profile_image_file = Files(
-            user=request.user,
-            upload_to=request.FILES["profile_image"],
-            doc_type="profile",
-        )
-        profile_image_file.save()
-
+        user = request.user
+        user.profile_image = request.FILES.get("profile_image")
+        print(user.profile_image)
+        user.save()
         return redirect("user_profile")
 
     user_files = Files.objects.filter(user=request.user)
-    profile_image = user_files.filter(doc_type="profile").first()
+    profile_image = (
+        request.user.profile_image.url if request.user.profile_image else None
+    )
+    print(profile_image)
     return render(
         request,
         "dashboard/user/profile.html",
         {"user_files": user_files, "profile_image": profile_image},
     )
+
+
+@login_required
+def upload_file(request):
+    if request.method == "POST":
+        print(request)
+        document_types = ["crea", "passport", "cpf", "rg"]
+        for doc_type in document_types:
+            file = request.FILES.get(f"{doc_type}_file")
+            if file:
+                # Create a new Files instance
+                file_instance = Files.objects.create(
+                    user=request.user, upload_to=file, doc_type=doc_type
+                )
+
+                # Get or create a Documents instance for the user
+                documents, _ = Documents.objects.get_or_create(user=request.user)
+
+                # Update the corresponding field in Documents
+                setattr(documents, doc_type, file_instance)
+                documents.save()
+
+        messages.success(request, "Documentos enviados com sucesso!")
+        return redirect("user_profile")
+
+    return render(request, "dashboard/user/upload_file.html")

@@ -1,4 +1,4 @@
-{% extends "dashboard_base.html" %}
+{% extends "base.html" %}
 {% load static %}
 
 {% block title %}Perfil do Usuário{% endblock %}
@@ -6,8 +6,9 @@
 {% block content %}
 <div class="container mt-5 text-center">
     <div class="profile-image-container">
+        {{ user.profile_image_path }}
         {% if profile_image %}
-        <img class="profile-image rounded-circle" src="{{ profile_image.upload_to.url }}" alt="Profile Image">
+        <img class="profile-image rounded-circle" src="{{ profile_image }}" alt="Profile Image">
         {% else %}
         <img src="{% static 'images/default_profile.jpg' %}" alt="Default Profile Image"
             class="profile-image rounded-circle">
@@ -25,7 +26,8 @@
 
     <div class="text-center">
         <a href="{% url 'password_change' %}" class="btn btn-link">Trocar Senha</a>
-        <a href="{% url 'update_user_info' %}" class="btn btn-link">Alterar Informações</a>
+        <a href="#" class="btn btn-link">Alterar Informações</a>
+        <div class="p-2"><a href="{% url 'upload_file' %}">Status da Documentação: <b>Pendente</b></a></div>
     </div>
 </div>
 <style>

@@ -4,20 +4,20 @@ from app.models.users import User
 
 
 class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField(max_length=200, help_text="Required")
+    email = forms.EmailField(label='Email', max_length=200, help_text="Required")
     name = forms.CharField(
         max_length=100, label="Nome Completo", required=True, help_text="Required"
     )
     dob = forms.DateField(
         required=True,
         label="Data de nascimento",
-        widget=forms.SelectDateWidget(years=range(1900, 2025)),
+        widget=forms.SelectDateWidget(years=range(1925, 2025)),
     )
     cpf = forms.CharField(
         max_length=11,
         required=True,
         label="CPF",
-        help_text="Required. Must be 11 digits.",
+        help_text="Obrigatório. Deve ter 11 dígitos.",
         error_messages={"required": "Este campo é obrigatório."},
     )
 

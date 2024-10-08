@@ -24,13 +24,14 @@
       <div class="dropdown text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          {% if user.profile_image_path %}
-          <img src="{{ user.profile_image_path }}" alt="mdo" width="32" height="32" class="rounded-circle">
-          {% else %}
-          <img src="{% static 'images/default_profile.jpg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
-          {% endif %}
+          <span style="position: absolute; top: -8px; left: 16px;" class="badge bg-danger">4</span>
+          <img src="{{ user.profile_image.url }}" alt="user_profile" width="32" height="32" class="rounded-circle">
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="#">Mensagens
+              <span class="badge bg-danger">4</span>
+            </a>
+          </li>
           <li><a class="dropdown-item" href="{% url 'password_change' %}">Trocar senha</a></li>
           <li><a class="dropdown-item" href="{% url 'user_profile' %}">Perfil</a></li>
           <li>
@@ -47,5 +48,5 @@
     </div>
   </div>
 </header>
-
+<script src="{% static 'js/modal.js'%}"></script>
 {% endblock %}

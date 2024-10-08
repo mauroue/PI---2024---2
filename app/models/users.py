@@ -1,5 +1,18 @@
+import uuid
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from app.validators import validate_cpf
 from django.db import models
+
+DEFAULT_PROFILE_IMAGE = "static/images/default_profile.jpg"
+
+STATUS_CHOICES = [
+    ("new", "Novo"),
+    ("pending_documentation", "Aguardando Documentação"),
+    ("pending_aproval", "Aguardando Aprovação"),
+    ("suspended", "Suspenso"),
+    ("banned", "Banido"),
+    ("able", "Apto"),
+]
 
 
 class UserManager(BaseUserManager):
@@ -24,28 +37,31 @@ class UserManager(BaseUserManager):
         return self.create_user(email, username, password, **extra_fields)
 
 
+def user_directory_path(instance, filename):
+    unique_filename = f"{uuid.uuid4()}{filename[filename.rfind('.'):]}"
+    return f"user_{instance.id}/{unique_filename}"
+
+
 class User(AbstractUser):
-    name = models.CharField(max_length=100, blank=True)
-    dob = models.DateField(null=True, blank=True)
-    crea = models.CharField(max_length=100, blank=True, null=True)
+    name = models.CharField(max_length=100)
+    dob = models.DateField(null=True)
+    crea = models.CharField(max_length=100, null=True)
     active = models.BooleanField(default=True)
-    passport_due = models.DateField(blank=True, null=True)
-    cpf = models.CharField(max_length=11, blank=False, null=False, unique=True)
-    rg = models.CharField(max_length=20, null=False, blank=False)
-    email = models.CharField(max_length=100, unique=True)
-    status = models.CharField(max_length=50, default="new")
-    worker = models.BooleanField(default=True)
+    passport_due = models.DateField(null=True)
+    cpf = models.CharField(
+        max_length=11, blank=False, null=False, unique=True, validators=[validate_cpf]
+    )
+    rg = models.CharField(max_length=20, null=True)
+    email = models.EmailField(max_length=100, unique=True)
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="new")
+    is_worker = models.BooleanField(default=True)
+    profile_image = models.FileField(
+        upload_to=user_directory_path,
+        default="settings.MEDIA_ROOT/images/default_profile.jpg",
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name", "dob", "cpf"]
 
-    @property
-    def profile_image_path(self):
-        profile_image = self.profile_image.last()
-        return profile_image.upload_to.url if profile_image else None
-
-    def user_directory_path(self, filename):
-        return f"media/user_storage/user_{self.pk}/{filename}"
-
     def __str__(self):
-        return self.name or self.username
+        return self.name or self.username or "Anônimo"
