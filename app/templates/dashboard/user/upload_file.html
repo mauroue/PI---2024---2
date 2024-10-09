@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% load static %}
+{% load crispy_forms_tags %}
 
 {% block title%}Envio de Documentos{% endblock %}
 
@@ -11,16 +11,17 @@
   </div>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
+    {{ form|crispy }}
 
     <!-- CREA Field -->
-    <div class="form-floating mb-3">
+    <!-- <div class="form-floating mb-3">
       <input type="text" class="form-control" id="crea" name="crea" placeholder="Digite o número do CREA">
       <label for="crea">CREA</label>
     </div>
     <div class="mb-3">
       <label for="crea_file" class="form-label">Arquivo do CREA</label>
       <input type="file" class="form-control" id="crea_file" name="crea_file">
-    </div>
+    </div> -->
     <!---->
     <!-- <!-- Passport Field --> -->
     <!-- <div class="form-floating mb-3"> -->

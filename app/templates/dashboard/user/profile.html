@@ -24,10 +24,48 @@
     <h3>@{{ user.username }}</h3>
     <p>{{ user.email }}</p>
 
-    <div class="text-center">
+    <div class="text-center align-self-center mx-auto" style="max-width: 500px;">
         <a href="{% url 'password_change' %}" class="btn btn-link">Trocar Senha</a>
         <a href="#" class="btn btn-link">Alterar Informações</a>
         <div class="p-2"><a href="{% url 'upload_file' %}">Status da Documentação: <b>Pendente</b></a></div>
+        <ul class="list-group list-group-flush d-flex text-center">
+            <li class="list-group-item d-flex justify-content-center">CREA:
+                {% if documents.crea %}
+                <h1 class="text-success px-2">{{ done|safe }}
+                </h1>
+                {% else %}
+                <h1 class="text-danger px-2">{{ pending|safe }}
+                </h1>
+                {% endif %}
+            </li>
+            <li class="list-group-item d-flex justify-content-center">PASSAPORTE:
+                {% if documents.passport %}
+                <h1 class="text-success px-2">{{ done|safe }}
+                </h1>
+                {% else %}
+                <h1 class="text-danger px-2">{{ pending|safe }}
+                </h1>
+                {% endif %}
+            </li>
+            <li class="list-group-item d-flex justify-content-center">CPF:
+                {% if documents.cpf %}
+                <h1 class="text-success px-2">{{ done|safe }}
+                </h1>
+                {% else %}
+                <h1 class="text-danger px-2">{{ pending|safe }}
+                </h1>
+                {% endif %}
+            </li>
+            <li class="list-group-item d-flex justify-content-center">RG:
+                {% if documents.rg %}
+                <h1 class="text-success px-2">{{ done|safe }}
+                </h1>
+                {% else %}
+                <h1 class="text-danger px-2">{{ pending|safe }}
+                </h1>
+                {% endif %}
+            </li>
+        </ul>
     </div>
 </div>
 <style>
@@ -36,6 +74,15 @@
         max-height: 120px;
         border-radius: 50%;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .list-group {
+        display: flex;
+        list-style-type: none;
+    }
+
+    li {
+        display: flex;
     }
 </style>
 {% endblock %}
