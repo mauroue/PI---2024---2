@@ -25,7 +25,11 @@
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
           <span style="position: absolute; top: -8px; left: 16px;" class="badge bg-danger">4</span>
+          {% if user.profile_image %}
           <img src="{{ user.profile_image.url }}" alt="user_profile" width="32" height="32" class="rounded-circle">
+          {% else %}
+          <img src="{% static 'images/default_profile.jpg'%}" alt="user_profile" width="32" height="32" class="rounded-circle">
+          {% endif %}
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
           <li><a class="dropdown-item" href="#">Mensagens

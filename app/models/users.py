@@ -1,7 +1,9 @@
 import uuid
+from app.models.profile import Profile
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from app.validators import validate_cpf
 from django.db import models
+from django.conf import settings
 
 DEFAULT_PROFILE_IMAGE = "static/images/default_profile.jpg"
 
@@ -57,11 +59,18 @@ class User(AbstractUser):
     is_worker = models.BooleanField(default=True)
     profile_image = models.FileField(
         upload_to=user_directory_path,
-        default="settings.MEDIA_ROOT/images/default_profile.jpg",
+        null=True
     )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name", "dob", "cpf"]
+
+    def save(self):
+        super(User, self).save()
+        profile = Profile.objects.filter(user=self)
+        if profile:
+            print("ok")
+
 
     def __str__(self):
         return self.name or self.username or "Anônimo"
