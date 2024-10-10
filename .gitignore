@@ -10,3 +10,4 @@ venv
 .data/db
 .user_storage
 user_storage/user_4
+user_storage/user_1

@@ -6,11 +6,13 @@ from app.forms.update_user_info import UserUpdateForm
 from django.contrib.auth.decorators import login_required
 from app.forms.work_request_form import WorkRequestForm
 from app.models.documents import Documents
+from app.models.profile import Profile
 from app.models.work_requests import WorkRequest
 from app.models.work_user_proposals import WorkUserProposal
 from django.contrib.auth import login
 from app.models.files import Files
 import logging
+from django.contrib.admin.views.decorators import staff_member_required
 
 logger = logging.getLogger(__name__)
 
@@ -118,23 +120,45 @@ def user_profile(request):
 
 @login_required
 def upload_file(request):
+    documents, created = Documents.objects.get_or_create(user=request.user)
+    documents_uploaded = {
+        "crea_file": documents.crea is not None,
+        "passport_file": documents.passport is not None,
+        "cpf_file": documents.cpf is not None,
+        "rg_file": documents.rg is not None,
+    }
+
     if request.method == "POST":
         form = DocumentUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            documents, created = Documents.objects.get_or_create(user=request.user)
-
             for field_name in ["crea", "passport", "cpf", "rg"]:
-                file = request.FILES.get(f"{field_name}_file")
-                if file:
+                file = form.cleaned_data.get(f"{field_name}_file")
+                if file and not documents_uploaded[f"{field_name}_file"]:
                     file_instance = Files.objects.create(
                         user=request.user, upload_to=file, doc_type=field_name
                     )
                     setattr(documents, field_name, file_instance)
 
             documents.save()
-            messages.success(request, "Documents uploaded successfully!")
+            messages.success(request, "Documentos enviados com sucesso!")
             return redirect("user_profile")
     else:
         form = DocumentUploadForm()
 
-    return render(request, "dashboard/user/upload_file.html", {"form": form})
+    return render(
+        request,
+        "dashboard/user/upload_file.html",
+        {"form": form, "documents_uploaded": documents_uploaded},
+    )
+
+
+@staff_member_required
+def admin_document_dashboard(request):
+    users_with_complete_docs = Profile.objects.filter(
+        user__documents__crea__isnull=False,
+        user__documents__passport__isnull=False,
+        user__documents__cpf__isnull=False,
+        user__documents__rg__isnull=False,
+    ).select_related("user", "user__documents")
+
+    return render(request, "admin/dashboard.html", {"users": users_with_complete_docs})

@@ -1,13 +1,13 @@
 from django import forms
-from app.models.documents import Documents
 
 
-class DocumentUploadForm(forms.ModelForm):
-    crea_file = forms.FileField(required=False)
-    passport_file = forms.FileField(required=False)
-    cpf_file = forms.FileField(required=False)
-    rg_file = forms.FileField(required=False)
+class DocumentUploadForm(forms.Form):
+    crea_file = forms.FileField(label="CREA", required=False)
+    passport_file = forms.FileField(label="Passaporte", required=False)
+    cpf_file = forms.FileField(label="CPF", required=False)
+    rg_file = forms.FileField(label="RG", required=False)
 
-    class Meta:
-        model = Documents
-        fields = []
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({"class": "form-control"})

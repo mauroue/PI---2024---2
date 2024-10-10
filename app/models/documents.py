@@ -1,18 +1,22 @@
 from django.db import models
 from django.conf import settings
+from app.models.files import Files  # Make sure this import is correct
 
 
 class Documents(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     crea = models.ForeignKey(
-        "Files", on_delete=models.SET_NULL, null=True, related_name="crea_document"
+        Files, on_delete=models.SET_NULL, null=True, related_name="crea_document"
     )
     passport = models.ForeignKey(
-        "Files", on_delete=models.SET_NULL, null=True, related_name="passport_document"
+        Files, on_delete=models.SET_NULL, null=True, related_name="passport_document"
     )
     cpf = models.ForeignKey(
-        "Files", on_delete=models.SET_NULL, null=True, related_name="cpf_document"
+        Files, on_delete=models.SET_NULL, null=True, related_name="cpf_document"
     )
     rg = models.ForeignKey(
-        "Files", on_delete=models.SET_NULL, null=True, related_name="rg_document"
+        Files, on_delete=models.SET_NULL, null=True, related_name="rg_document"
     )
+
+    def __str__(self):
+        return f"Documents for {self.user.username}"

@@ -23,18 +23,24 @@ from app.views import (
     cancel_work_request,
     upload_file,
     user_profile,
+    admin_document_dashboard,
 )
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import include, path
+from django.urls import path
 from django.views.generic.base import TemplateView
 from app.views import create_work_request
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # url files
+    # Move the admin document dashboard URL before the admin site URLs
+    path(
+        "admin/document-dashboard/",
+        admin_document_dashboard,
+        name="admin_document_dashboard",
+    ),
+    # Admin URLs
     path("admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
     # views
     path("register/", register_view, name="register"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),

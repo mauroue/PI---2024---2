@@ -1,0 +1,11 @@
+{% extends "admin/index.html" %}
+
+{% block sidebar %}
+{{ block.super }}
+<div class="module">
+    <h2>Document Management</h2>
+    <ul>
+        <li><a href="{% url 'admin_document_dashboard' %}">Document Dashboard</a></li>
+    </ul>
+</div>
+{% endblock %}

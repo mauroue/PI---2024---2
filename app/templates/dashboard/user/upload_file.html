@@ -1,100 +1,36 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load custom_filters %}
 
-{% block title%}Envio de Documentos{% endblock %}
+{% block title %}Envio de Documentos{% endblock %}
 
 {% block content %}
-<div class="container mt-2">
-  <h2>Exemplo de Formulário</h2>
-  <div class="pb-3">
-  </div>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form|crispy }}
-
-    <!-- CREA Field -->
-    <!-- <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="crea" name="crea" placeholder="Digite o número do CREA">
-      <label for="crea">CREA</label>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">Envio de Documentos</h3>
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">{{ field.label }}</label>
+              {% if documents_uploaded|get_item:field.name %}
+              <p class="form-control-static text-success">Documento já enviado</p>
+              {% else %}
+              {{ field }}
+              {% endif %}
+            </div>
+            {% endfor %}
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <div class="mb-3">
-      <label for="crea_file" class="form-label">Arquivo do CREA</label>
-      <input type="file" class="form-control" id="crea_file" name="crea_file">
-    </div> -->
-    <!---->
-    <!-- <!-- Passport Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="text" class="form-control" id="passport" name="passport" placeholder="Digite o número do Passaporte"> -->
-    <!--     <label for="passport">Passaporte</label> -->
-    <!-- </div> -->
-    <!-- <div class="mb-3"> -->
-    <!--     <label for="passport_file" class="form-label">Arquivo do Passaporte</label> -->
-    <!--     <input type="file" class="form-control" id="passport_file" name="passport_file"> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- CPF Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="text" class="form-control" id="cpf" name="cpf" placeholder="Digite o número do CPF"> -->
-    <!--     <label for="cpf">CPF</label> -->
-    <!-- </div> -->
-    <!-- <div class="mb-3"> -->
-    <!--     <label for="cpf_file" class="form-label">Arquivo do CPF</label> -->
-    <!--     <input type="file" class="form-control" id="cpf_file" name="cpf_file"> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- RG Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="text" class="form-control" id="rg" name="rg" placeholder="Digite o número do RG"> -->
-    <!--     <label for="rg">RG</label> -->
-    <!-- </div> -->
-    <!-- <div class="mb-3"> -->
-    <!--     <label for="rg_file" class="form-label">Arquivo do RG</label> -->
-    <!--     <input type="file" class="form-control" id="rg_file" name="rg_file"> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- Qualification Section --> -->
-    <!-- <h3>Qualificação</h3> -->
-    <!---->
-    <!-- <!-- Name of Qualification --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="text" class="form-control" id="qualification_name" name="qualification_name" placeholder="Digite o Nome da Qualificação"> -->
-    <!--     <label for="qualification_name">Nome da Qualificação</label> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- Type of Qualification (Select Dropdown) --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <select class="form-select" id="qualification_type" name="qualification_type" aria-label="Escolha o Tipo de Qualificação"> -->
-    <!--         <option value="" selected>Escolha o Tipo de Qualificação</option> -->
-    <!--         <option value="bachelor">Graduação</option> -->
-    <!--         <option value="master">Mestrado</option> -->
-    <!--         <option value="phd">Doutorado</option> -->
-    <!--         <option value="diploma">Diploma</option> -->
-    <!--     </select> -->
-    <!--     <label for="qualification_type">Tipo de Qualificação</label> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- Conclusion Date Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="date" class="form-control" id="conclusion_date" name="conclusion_date"> -->
-    <!--     <label for="conclusion_date">Data de Conclusão</label> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- Due Date Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="date" class="form-control" id="due_date" name="due_date"> -->
-    <!--     <label for="due_date">Data de Vencimento</label> -->
-    <!-- </div> -->
-    <!---->
-    <!-- <!-- Organization Field --> -->
-    <!-- <div class="form-floating mb-3"> -->
-    <!--     <input type="text" class="form-control" id="organization" name="organization" placeholder="Digite a Organização"> -->
-    <!--     <label for="organization">Organização</label> -->
-    <!-- </div> -->
-
-    <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary">Enviar</button>
-  </form>
+  </div>
 </div>
-
 {% endblock %}
