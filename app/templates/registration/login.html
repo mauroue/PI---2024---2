@@ -3,17 +3,144 @@
 
 {% load static %}
 
-{% block title %}Login - AWS Customer Support{% endblock %}
+{% block title %}Login - TechAero Suporte{% endblock %}
 
 {% block content %}
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  .main-container {
+    display: flex;
+    min-height: 100vh;
+    background: url('{% static "images/aviao-ia.jpg" %}') right top no-repeat fixed;
+    background-size: cover;
+  }
+  .content {
+    display: flex;
+    margin: auto;
+    width: 80%;
+    max-width: 1200px;
+    background-color: transparent; /* Torna o container principal transparente */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+  .left-side, .right-side {
+    padding: 50px;
+  }
+  .left-side {
+    background-color: rgba(255, 255, 255, 0.726); /* Branco com 80% de opacidade */
+    color: white;
+    flex: 1.2;
+    position: relative;
+  }
+  .left-side::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('{% static "images/airplane-repair.jpg" %}') center/cover no-repeat;
+    opacity: 0.3; /* Ajuste este valor para controlar a visibilidade da imagem */
+    z-index: -1;
+  }
+  .left-side-content {
+    position: relative;
+    z-index: 1;
+  }
+  .right-side {
+    flex: 0.8;
+    background-color: rgba(255, 255, 255, 0.726); /* Branco com 80% de opacidade */
+    padding: 50px;
+  }
+  h1 {
+    font-size: 3.5em;
+    margin-bottom: 10px;
+    background: linear-gradient(to bottom, #020316, #020316, #020316);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  .sub-heading {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #020316;
+  }
+  .description {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #000000;
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .form-group {
+    margin-bottom: 25px;
+  }
+  label {
+    display: block;
+    margin-bottom: 8px;
+    color: #140392;
+    font-weight: bold;
+  }
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  input:focus {
+    border-color: #1976d2;
+    outline: none;
+  }
+  .login-btn {
+    background-color: #140392;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  .login-btn:hover {
+    background-color: #1565c0;
+  }
+  .login-btn:active {
+    transform: scale(0.98);
+  }
+  .links {
+    margin-top: 25px;
+    text-align: center;
+  }
+  .links a {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .links a:hover {
+    text-decoration: underline;
+  }
+</style>
+
 <div class="main-container">
   <div class="content">
     <div class="left-side">
-      <h1>AWS</h1>
-      <p class="sub-heading">customer support</p>
-      <p>Presta serviços e apoio ao cliente nas áreas da Aeronáutica, Automação Industrial e representações nacionais e
-        internacionais. A equipe de AWS GROUP - CUSTOMER SUPPORT é composta por profissionais com mais de 15 anos de
-        experiência dedicados à prestação de serviços nas áreas de Aviação, Automação e Representações.</p>
+      <div class="left-side-content">
+        <h1>AWS Customer Support</h1>
+        <p class="sub-heading">Suporte Técnico de Aviação</p>
+        <p class="description">Conectamos os melhores técnicos de reparo de aeronaves com as empresas que precisam de seus serviços. Nossa plataforma oferece oportunidades para profissionais qualificados e soluções eficientes para a indústria aeronáutica.</p>
+      </div>
     </div>
     <div class="right-side">
       <form method="post" class="login-form">
@@ -29,10 +156,10 @@
           {{ form.password }}
           {{ form.password.errors}}
         </div>
-        <button type="submit" class="login-btn">Login</button>
+        <button type="submit" class="login-btn">Entrar</button>
       </form>
       <div class="links">
-        <a href="{% url 'password_reset' %}">Esqueceu a senha?</a>
+        <a href="#">Esqueceu a senha?</a> | <a href="#">Cadastre-se</a>
       </div>
     </div>
   </div>

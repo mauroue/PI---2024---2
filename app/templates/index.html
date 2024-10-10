@@ -2,12 +2,133 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Login - AWS Customer Support{% endblock %}
+{% block title %}AWS Customer Support - Manutenção de Aeronaves{% endblock %}
 
-{% include "header.html" %}
 {% block content %}
-<content class="container">
-    <h1>index.html</h1>
-</content>
+<div class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>AWS Customer Support</h1>
+                <h2>Plataforma de Cadastro e Contratação de Mecânicos de Aeronaves</h2>
+                <p class="lead">
+                    Conectamos mecânicos de manutenção de aeronaves qualificados com empresas que necessitam de serviços especializados sob demanda.
+                </p>
+                <div class="features">
+                    <div class="feature-item">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Cadastre-se como mecânico e escolha suas regiões de atuação</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Processo de aprovação e entrevista</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Programa complementar de treinamento/qualificação EAD</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-handshake"></i>
+                        <span>Oportunidades de subcontratação com empresas parceiras</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg">Cadastre-se como Mecânico</a>
+                    <a href="#" class="btn btn-secondary btn-lg">Sou uma Empresa</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .hero-section {
+        background-image: url('{% static "images/aviao-home.jpg" %}');
+        background-size: cover;
+        background-position: center;
+        color: white;
+        min-height: 72vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        padding: 40px 0;
+    }
+
+    .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-section .container {
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero-section h1 {
+        font-size: 2.8rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
+
+    .hero-section h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+    }
+
+    .hero-section .lead {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+    }
+
+    .features {
+        margin-bottom: 25px;
+    }
+
+    .feature-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+    }
+
+    .feature-item i {
+        font-size: 1.5rem;
+        margin-right: 15px;
+        color: #ffc107;
+    }
+
+    .feature-item span {
+        font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .btn-lg {
+        padding: 10px 20px;
+        font-size: 1.1rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            text-align: center;
+        }
+
+        .feature-item {
+            justify-content: center;
+        }
+
+        .cta-buttons {
+            justify-content: center;
+        }
+    }
+</style>
 {% endblock %}
 
