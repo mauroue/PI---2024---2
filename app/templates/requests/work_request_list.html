@@ -39,7 +39,7 @@
                     </span>
                     {% else %}
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                        data-bs-target="#actionModal" data-action="apply" data-work-request-id="{{ work_request.id }}">
+                        data-bs-target="#proposalModal" data-work-request-id="{{ work_request.id }}">
                         Aplicar
                     </button>
                     {% endif %}
@@ -49,5 +49,39 @@
         </tbody>
     </table>
 </div>
+
+<!-- Add this modal at the end of your template -->
+<div class="modal fade" id="proposalModal" tabindex="-1" aria-labelledby="proposalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="proposalModalLabel">Create Proposal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- The form will be loaded here -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add this script at the end of your template -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var proposalModal = document.getElementById('proposalModal');
+        proposalModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var workRequestId = button.getAttribute('data-work-request-id');
+            var modalBody = proposalModal.querySelector('.modal-body');
+
+            // Load the form via AJAX
+            fetch(`/create-proposal/${workRequestId}/`)
+                .then(response => response.text())
+                .then(html => {
+                    modalBody.innerHTML = html;
+                });
+        });
+    });
+</script>
 
 {% endblock %}

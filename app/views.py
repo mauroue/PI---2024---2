@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from app.forms.document_upload_form import DocumentUploadForm
 from app.forms.register import UserRegistrationForm
@@ -186,3 +187,25 @@ def create_proposal(request, work_request_id):
     return render(
         request, "create_proposal.html", {"form": form, "work_request": work_request}
     )
+
+
+def create_proposal_form(request, work_request_id):
+    work_request = WorkRequest.objects.get(id=work_request_id)
+    form = WorkUserProposalForm()
+    return render(
+        request,
+        "requests/proposal_form.html",
+        {"form": form, "work_request": work_request},
+    )
+
+
+def submit_proposal(request, work_request_id):
+    if request.method == "POST":
+        form = WorkUserProposalForm(request.POST)
+        if form.is_valid():
+            proposal = form.save(commit=False)
+            proposal.work_request_id = work_request_id
+            proposal.user = request.user
+            proposal.save()
+            return JsonResponse({"status": "success"})
+    return JsonResponse({"status": "error"})

@@ -19,7 +19,7 @@ class WorkUserProposalForm(forms.ModelForm):
     def clean_cost(self):
         cost = self.cleaned_data["cost"]
         if cost < 0:
-            raise forms.ValidationError("Cost cannot be negative.")
+            raise forms.ValidationError("Preço não pode ser negativo.")
         return cost
 
     def __init__(self, *args, **kwargs):

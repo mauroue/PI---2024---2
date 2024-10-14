@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from django.conf import settings
+from app import views
 from app.views import (
     apply_work_request,
     register_view,
@@ -81,6 +82,16 @@ urlpatterns = [
         name="login",
     ),
     path("upload-file/", upload_file, name="upload_file"),
+    path(
+        "create-proposal/<int:work_request_id>/",
+        views.create_proposal_form,
+        name="create_proposal_form",
+    ),
+    path(
+        "submit-proposal/<int:work_request_id>/",
+        views.submit_proposal,
+        name="submit_proposal",
+    ),
 ]
 
 if settings.DEBUG:
