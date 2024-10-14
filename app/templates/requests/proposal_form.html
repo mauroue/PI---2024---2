@@ -1,7 +1,7 @@
 <form id="proposalForm" method="post" action="{% url 'submit_proposal' work_request.id %}">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Submit Proposal</button>
+    <button type="submit" class="btn btn-primary">Enviar Proposta</button>
 </form>
 
 <script>
@@ -18,11 +18,11 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    alert('Proposal submitted successfully!');
+                    alert('Proposta enviada com sucesso!');
                     var modal = bootstrap.Modal.getInstance(document.getElementById('proposalModal'));
                     modal.hide();
                 } else {
-                    alert('Error submitting proposal. Please try again.');
+                    alert('Erro ao enviar proposta. Por favor, tente novamente.');
                 }
             });
     });
