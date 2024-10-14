@@ -13,7 +13,7 @@ STATUS_CHOICES = [
     ("pending_aproval", "Aguardando Aprovação"),
     ("suspended", "Suspenso"),
     ("banned", "Banido"),
-    ("able", "Apto"),
+    ("approved", "Aprovado"),
 ]
 
 
@@ -57,20 +57,16 @@ class User(AbstractUser):
     email = models.EmailField(max_length=100, unique=True)
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default="new")
     is_worker = models.BooleanField(default=True)
-    profile_image = models.FileField(
-        upload_to=user_directory_path,
-        null=True
-    )
+    profile_image = models.FileField(upload_to=user_directory_path, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["name", "dob", "cpf"]
 
-    def save(self):
-        super(User, self).save()
-        profile = Profile.objects.filter(user=self)
-        if profile:
-            print("ok")
-
+    def save(self, *args, **kwargs):
+        is_new = self._state.adding
+        super().save(*args, **kwargs)  # type: ignore # noqa: F821
+        if is_new:
+            Profile.objects.create(user=self)
 
     def __str__(self):
         return self.name or self.username or "Anônimo"
