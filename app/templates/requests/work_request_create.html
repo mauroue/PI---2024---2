@@ -4,6 +4,7 @@
 {% block title %}Create Work Request{% endblock %}
 
 {% block content %}
+{% if not user.is_worker %}
 <div class="container mt-5">
     <h2 class="text-center mb-4">Create Work Request</h2>
     <form method="post" action="" class="needs-validation" novalidate>
@@ -12,4 +13,10 @@
         <button type="submit" class="btn btn-primary w-100">Submit</button>
     </form>
 </div>
+{% else %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Você não pode criar uma proposta pois você é um trabalhador</h2>
+    <a href="{% url 'user_dashboard' %}" class="btn btn-primary w-100">Dashboard</a>
+</div>
+{% endif %}
 {% endblock %}

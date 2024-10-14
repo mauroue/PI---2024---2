@@ -7,19 +7,37 @@
 {% if user.is_authenticated %}
 <div class="container">
   <h2>
-Olá {{ user.username}}!
+    Olá {{ user.username}}!
   </h2>
 </div>
-  <main class="container p-3">
+<main class="container p-3">
+  {% if not user.documents.crea or not user.documents.rg or not user.documents.cpf or not user.documents.passport %}
   <div class="">
     <h4>Faltam os seguintes passos para comecar a buscar propostas:</h4>
     <ul class="list-group">
+      {% if not user.documents.crea %}
+      <li class="list-group-item">Cópia do CREA</li>
+      {% endif %}
+      {% if not user.documents.rg %}
       <li class="list-group-item">Cópia do RG</li>
-      <li class="list-group-item">Preencher formulário</li>
-      <li class="list-group-item">Enviar foto</li>
+      {% endif %}
+      {% if not user.documents.cpf %}
+      <li class="list-group-item">Cópia do CPF</li>
+      {% endif %}
+      {% if not user.documents.passport %}
+      <li class="list-group-item">Cópia do Passaporte</li>
+      {% endif %}
+
+      <a href="{% url 'upload_file' %}" class="btn btn-primary">Enviar Documentos</a>
     </ul>
   </div>
-  </main>
+  {% else %}
+  <div class="">
+    <h4>Você já possui todos os documentos necessários para começar a buscar propostas!</h4>
+    <a href="{% url 'list_work_request' %}" class="btn btn-primary">Buscar Propostas</a>
+  </div>
+  {% endif %}
+</main>
 {% else %}
 <p>Você não está logado</p>
 <p>redirecionando...</p>
