@@ -3,7 +3,8 @@ from app.models.profile import Profile
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from app.validators import validate_cpf
 from django.db import models
-from django.conf import settings
+from django.core.files.base import ContentFile
+import os
 
 DEFAULT_PROFILE_IMAGE = "static/images/default_profile.jpg"
 
@@ -64,6 +65,15 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         is_new = self._state.adding
+
+        if self.profile_image:
+            if hasattr(self.profile_image, "file"):
+                file_name = (
+                    f"{uuid.uuid4()}{os.path.splitext(self.profile_image.name)[1]}"
+                )
+                self.profile_image.save(
+                    file_name, ContentFile(self.profile_image.read()), save=False
+                )
         super().save(*args, **kwargs)  # type: ignore # noqa: F821
         if is_new:
             Profile.objects.create(user=self)

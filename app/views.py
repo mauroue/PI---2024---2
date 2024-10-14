@@ -88,6 +88,12 @@ def register_view(request):
 
 @login_required
 def user_profile(request):
+    if request.method == "POST" and request.FILES.get("profile_image"):
+        profile_image = request.FILES["profile_image"]
+        request.user.profile_image = profile_image
+        request.user.save()
+        return redirect("user_profile")
+
     user_files = Files.objects.filter(user=request.user)
     documents, created = Documents.objects.get_or_create(user=request.user)
     profile_image = (
