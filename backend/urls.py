@@ -33,15 +33,14 @@ from app.views import create_work_request
 from django.conf.urls.static import static
 
 urlpatterns = [
-    # Move the admin document dashboard URL before the admin site URLs
+    # Admin URLs
     path(
         "admin/document-dashboard/",
         admin_document_dashboard,
         name="admin_document_dashboard",
     ),
-    # Admin URLs
     path("admin/", admin.site.urls),
-    # views
+    # Views
     path("register/", register_view, name="register"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path(

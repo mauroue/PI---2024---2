@@ -30,11 +30,12 @@
                         data-bs-target="#actionModal" data-action="cancel" data-work-request-id="{{ work_request.id }}">
                         Cancelar
                     </button>
-                    {% elif work_request.requester != request.user and request.user.status != 'available' %}
-                    <span class="d-inline-block" tabindex=0 data-toggle="tooltip" data-placement="top" title="Valide seus documentos no seu perfil para aplicar em trabalhos.">
-                    <button type="button" class="btn btn-primary btn-sm" disabled>
-                        Aplicar
-                    </button>
+                    {% elif work_request.requester != request.user and request.user.profile.status != 'approved' %}
+                    <span class="d-inline-block" tabindex=0 data-toggle="tooltip" data-placement="top"
+                        title="Valide seus documentos no seu perfil para aplicar em trabalhos.">
+                        <button type="button" class="btn btn-primary btn-sm" disabled>
+                            Aplicar
+                        </button>
                     </span>
                     {% else %}
                     <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal"

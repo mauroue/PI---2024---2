@@ -13,6 +13,7 @@ from django.contrib.auth import login
 from app.models.files import Files
 import logging
 from django.contrib.admin.views.decorators import staff_member_required
+from .forms.work_user_proposal_form import WorkUserProposalForm
 
 logger = logging.getLogger(__name__)
 
@@ -168,3 +169,20 @@ def admin_document_dashboard(request):
     ).select_related("user", "user__documents")
 
     return render(request, "admin/dashboard.html", {"users": users_with_complete_docs})
+
+
+def create_proposal(request, work_request_id):
+    work_request = WorkRequest.objects.get(id=work_request_id)
+    if request.method == "POST":
+        form = WorkUserProposalForm(request.POST)
+        if form.is_valid():
+            proposal = form.save(commit=False)
+            proposal.work_request = work_request
+            proposal.user = request.user
+            proposal.save()
+            return redirect("work_request_detail", pk=work_request.id)
+    else:
+        form = WorkUserProposalForm()
+    return render(
+        request, "create_proposal.html", {"form": form, "work_request": work_request}
+    )
