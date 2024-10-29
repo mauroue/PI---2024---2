@@ -8,6 +8,7 @@ django-types==0.19.1
 gunicorn==23.0.0
 packaging==24.1
 psycopg2-binary==2.9.9
+psycopg2==2.9.9
 sqlparse==0.5.1
 types-psycopg2==2.9.21.20240819
 typing_extensions==4.12.2
