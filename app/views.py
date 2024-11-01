@@ -128,36 +128,51 @@ def user_profile(request):
 
 @login_required
 def upload_file(request):
-    documents, created = Documents.objects.get_or_create(user=request.user)
-    documents_uploaded = {
-        "crea_file": documents.crea is not None,
-        "passport_file": documents.passport is not None,
-        "cpf_file": documents.cpf is not None,
-        "rg_file": documents.rg is not None,
-    }
-
     if request.method == "POST":
         form = DocumentUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            for field_name in ["crea", "passport", "cpf", "rg"]:
-                file = form.cleaned_data.get(f"{field_name}_file")
-                if file and not documents_uploaded[f"{field_name}_file"]:
-                    file_instance = Files.objects.create(
-                        user=request.user, upload_to=file, doc_type=field_name
-                    )
-                    setattr(documents, field_name, file_instance)
+            document = form.save(commit=False)
 
-            documents.save()
-            messages.success(request, "Documentos enviados com sucesso!")
+            file_fields = ["crea", "passport", "cpf", "rg"]
+
+            for field in file_fields:
+                uploaded_file = request.FILES.get(field)
+                if uploaded_file:
+                    file_instance = Files.objects.create(
+                        user=request.user,
+                        file=uploaded_file,
+                        filename=uploaded_file.name,
+                        content_type=uploaded_file.content_type,
+                        size=uploaded_file.size,
+                    )
+                    setattr(document, field, file_instance)
+
+            document.user = request.user
+            document.save()
+
             return redirect("user_profile")
     else:
         form = DocumentUploadForm()
 
-    return render(
-        request,
-        "dashboard/user/upload_file.html",
-        {"form": form, "documents_uploaded": documents_uploaded},
-    )
+    context = {
+        "form": form,
+        "documents_uploaded": {
+            "crea": request.user.documents.crea
+            if hasattr(request.user, "documents")
+            else None,
+            "passport": request.user.documents.passport
+            if hasattr(request.user, "documents")
+            else None,
+            "cpf": request.user.documents.cpf
+            if hasattr(request.user, "documents")
+            else None,
+            "rg": request.user.documents.rg
+            if hasattr(request.user, "documents")
+            else None,
+        },
+    }
+
+    return render(request, "dashboard/user/upload_file.html", context)
 
 
 @staff_member_required

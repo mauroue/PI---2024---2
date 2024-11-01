@@ -23,8 +23,7 @@
                 onclick="document.getElementById('profile_image').click();">Trocar imagem</button>
         </form>
     </div>
-    <h3>@{{ user.username }}</h3>
-    <p>{{ user.email }}</p>
+    <h3>{{ user.email }}</h3>
 
     <div class="text-center align-self-center mx-auto" style="max-width: 500px;">
         <a href="{% url 'password_change' %}" class="btn btn-link">Trocar Senha</a>

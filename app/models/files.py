@@ -1,18 +1,24 @@
-import uuid
-from django.conf import settings
 from django.db import models
+from django.conf import settings
+from django.utils import timezone
 
 
 def user_directory_path(instance, filename):
-    unique_filename = f"{uuid.uuid4()}{filename[filename.rfind('.'):]}"
-    return f"user_{instance.user.id}/{unique_filename}"
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return f"user_{instance.user.id}/{filename}"
 
 
 class Files(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user"
-    )
-    upload_to = models.FileField(upload_to=user_directory_path)
-    secure = models.BooleanField(default=False)
-    lgpd = models.BooleanField(default=False)
-    doc_type = models.CharField(max_length=30, default="other")
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
+    filename = models.CharField(max_length=255, null=True, blank=True)
+    content_type = models.CharField(max_length=100, null=True, blank=True)
+    size = models.BigIntegerField(null=True, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.filename
+
+    class Meta:
+        verbose_name = "File"
+        verbose_name_plural = "Files"
