@@ -1,13 +1,55 @@
 from django import forms
+from app.models.documents import Documents
 
 
-class DocumentUploadForm(forms.Form):
-    crea_file = forms.FileField(label="CREA", required=False)
-    passport_file = forms.FileField(label="Passaporte", required=False)
-    cpf_file = forms.FileField(label="CPF", required=False)
-    rg_file = forms.FileField(label="RG", required=False)
+class DocumentUploadForm(forms.ModelForm):
+    crea = forms.FileField(
+        required=False, widget=forms.FileInput(attrs={"class": "form-control"})
+    )
+    passport = forms.FileField(
+        required=False, widget=forms.FileInput(attrs={"class": "form-control"})
+    )
+    cpf = forms.FileField(
+        required=False, widget=forms.FileInput(attrs={"class": "form-control"})
+    )
+    rg = forms.FileField(
+        required=False, widget=forms.FileInput(attrs={"class": "form-control"})
+    )
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs.update({"class": "form-control"})
+    crea_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Número do CREA"}
+        ),
+    )
+    passport_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Número do Passaporte"}
+        ),
+    )
+    cpf_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Número do CPF"}
+        ),
+    )
+    rg_number = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Número do RG"}
+        ),
+    )
+
+    class Meta:
+        model = Documents
+        fields = [
+            "crea",
+            "crea_number",
+            "passport",
+            "passport_number",
+            "cpf",
+            "cpf_number",
+            "rg",
+            "rg_number",
+        ]

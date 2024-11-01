@@ -8,24 +8,59 @@
 {% block content %}
 <div class="container mt-4">
   <div class="row justify-content-center">
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div class="card">
         <div class="card-body">
-          <h3 class="card-title text-center mb-4">Envio de Documentos</h3>
+          <h3 class="card-title text-center mb-5">Envio de Documentos</h3>
           <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% for field in form %}
-            <div class="mb-3">
-              <label class="form-label">{{ field.label }}</label>
-              {% if documents_uploaded|get_item:field.name %}
-              <p class="form-control-static text-success">Documento já enviado</p>
-              {% else %}
-              {{ field }}
-              {% endif %}
+
+            <!-- CREA -->
+            <div class="row mb-4 align-items-center">
+              <label class="col-2">CREA</label>
+              <div class="col-5">
+                {{ form.crea }}
+              </div>
+              <div class="col-5">
+                {{ form.crea_number }}
+              </div>
             </div>
-            {% endfor %}
+
+            <!-- Passaporte -->
+            <div class="row mb-4 align-items-center">
+              <label class="col-2">Passaporte</label>
+              <div class="col-5">
+                {{ form.passport }}
+              </div>
+              <div class="col-5">
+                {{ form.passport_number }}
+              </div>
+            </div>
+
+            <!-- CPF -->
+            <div class="row mb-4 align-items-center">
+              <label class="col-2">CPF</label>
+              <div class="col-5">
+                {{ form.cpf }}
+              </div>
+              <div class="col-5">
+                {{ form.cpf_number }}
+              </div>
+            </div>
+
+            <!-- RG -->
+            <div class="row mb-4 align-items-center">
+              <label class="col-2">RG</label>
+              <div class="col-5">
+                {{ form.rg }}
+              </div>
+              <div class="col-5">
+                {{ form.rg_number }}
+              </div>
+            </div>
+
             <div class="text-center mt-4">
-              <button type="submit" class="btn btn-primary">Enviar</button>
+              <button id="submitBtn" type="submit" class="btn btn-primary px-4" disabled>Enviar</button>
             </div>
           </form>
         </div>
@@ -33,4 +68,68 @@
     </div>
   </div>
 </div>
+
+<style>
+  .form-control {
+    border: 1px solid #ced4da;
+    padding: 0.375rem 0.75rem;
+  }
+
+  .btn-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+  }
+
+  .btn-primary:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    opacity: 0.65;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const pairs = [
+      { file: 'id_crea', number: 'id_crea_number' },
+      { file: 'id_passport', number: 'id_passport_number' },
+      { file: 'id_cpf', number: 'id_cpf_number' },
+      { file: 'id_rg', number: 'id_rg_number' }
+    ];
+
+    const submitBtn = document.getElementById('submitBtn');
+
+    function checkForm() {
+      let shouldEnable = true;
+      let hasAnyFile = false;
+
+      pairs.forEach(pair => {
+        console.log(pair)
+        const fileInput = document.getElementById(pair.file);
+        const numberInput = document.getElementById(pair.number);
+
+        if (fileInput.files.length > 0) {
+          hasAnyFile = true;
+          if (!numberInput.value.trim()) {
+            shouldEnable = false;
+          }
+        }
+      });
+
+      // Enable if either no files are selected, or all files have numbers
+      submitBtn.disabled = hasAnyFile ? !shouldEnable : false;
+    }
+
+    // Add event listeners
+    pairs.forEach(pair => {
+      const fileInput = document.getElementById(pair.file);
+      const numberInput = document.getElementById(pair.number);
+
+      fileInput.addEventListener('change', checkForm);
+      numberInput.addEventListener('input', checkForm);
+    });
+
+    // Initial check
+    checkForm();
+  });
+</script>
 {% endblock %}

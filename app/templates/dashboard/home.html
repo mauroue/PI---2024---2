@@ -16,19 +16,19 @@
     <h4>Faltam os seguintes passos para comecar a buscar propostas:</h4>
     <ul class="list-group">
       {% if not user.documents.crea %}
-      <li class="list-group-item">Cópia do CREA</li>
+      <li class="list-group-item">Dados do CREA</li>
       {% endif %}
       {% if not user.documents.rg %}
-      <li class="list-group-item">Cópia do RG</li>
+      <li class="list-group-item">Dados do RG</li>
       {% endif %}
       {% if not user.documents.cpf %}
-      <li class="list-group-item">Cópia do CPF</li>
+      <li class="list-group-item">Dados do CPF</li>
       {% endif %}
       {% if not user.documents.passport %}
-      <li class="list-group-item">Cópia do Passaporte</li>
+      <li class="list-group-item">Dados do Passaporte</li>
       {% endif %}
 
-      <a href="{% url 'upload_file' %}" class="btn btn-primary">Enviar Documentos</a>
+      <a href="{% url 'upload_file' %}" class="btn btn-primary my-2">Adicionar Informações</a>
     </ul>
   </div>
   {% else %}
