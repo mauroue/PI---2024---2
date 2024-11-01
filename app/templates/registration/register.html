@@ -16,7 +16,9 @@
                     <div class="row g-3">
                         {{ form|crispy }}
 
-                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Registrar</button>
+                        </div>
                     </div>
                 </form>
                 <div class="text-center mt-3">
@@ -25,6 +27,42 @@
             </div>
         </div>
     </main>
+    <div class="pb-5"></div>
 </div>
+<style>
+    #div_id_dob fieldset {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0;
+        border: none;
+        margin: 0;
+    }
 
+    #div_id_dob legend {
+        width: 100%;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        font-weight: 400;
+        padding: 0;
+    }
+
+    #div_id_dob select.form-control {
+        flex: 0 0 auto;
+        display: inline-block !important;
+        margin: 0 !important;
+    }
+
+    #id_dob_day {
+        width: 4.5rem !important;
+    }
+
+    #id_dob_month {
+        width: 8.5rem !important;
+    }
+
+    #id_dob_year {
+        width: 6.5rem !important;
+    }
+</style>
 {% endblock %}
