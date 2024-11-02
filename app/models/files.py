@@ -10,14 +10,14 @@ def user_directory_path(instance, filename):
 
 class Files(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
-    filename = models.CharField(max_length=255, null=True, blank=True)
-    content_type = models.CharField(max_length=100, null=True, blank=True)
-    size = models.BigIntegerField(null=True, blank=True)
+    file = models.FileField(upload_to=user_directory_path)
+    filename = models.CharField(max_length=255)
+    content_type = models.CharField(max_length=100)
+    size = models.BigIntegerField()
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.filename
+        return self.filename or str(self.file)
 
     class Meta:
         verbose_name = "File"
