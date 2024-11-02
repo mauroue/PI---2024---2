@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from app.models.profile import Profile
 from app.models.documents import Documents
 from app.models.files import Files
+from app.models.address import Address
+from app.models.contact_info import ContactInfo
 
 User = get_user_model()
 
@@ -25,3 +27,5 @@ if User in admin.site._registry:
 admin.site.register(User, UserAdmin)
 admin.site.register(Documents)
 admin.site.register(Files)
+admin.site.register(Address)
+admin.site.register(ContactInfo)

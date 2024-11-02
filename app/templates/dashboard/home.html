@@ -1,45 +1,59 @@
 <!-- home.html -->
 {% extends "base.html" %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home{% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated %}
 <div class="container">
-  <h2>
-    Olá {{ user.username}}!
-  </h2>
-</div>
-<main class="container p-3">
-  {% if not user.documents.crea or not user.documents.rg or not user.documents.cpf or not user.documents.passport %}
-  <div class="">
-    <h4>Faltam os seguintes passos para comecar a buscar propostas:</h4>
-    <ul class="list-group">
-      {% if not user.documents.crea %}
-      <li class="list-group-item">Dados do CREA</li>
-      {% endif %}
-      {% if not user.documents.rg %}
-      <li class="list-group-item">Dados do RG</li>
-      {% endif %}
-      {% if not user.documents.cpf %}
-      <li class="list-group-item">Dados do CPF</li>
-      {% endif %}
-      {% if not user.documents.passport %}
-      <li class="list-group-item">Dados do Passaporte</li>
-      {% endif %}
+  {% if user.is_authenticated %}
+  <h2>Olá {{ user.first_name }}!</h2>
 
-      <a href="{% url 'upload_file' %}" class="btn btn-primary my-2">Adicionar Informações</a>
-    </ul>
-  </div>
+  <main class="container p-3">
+    {% if not user.documents.crea or not user.documents.rg or not user.documents.cpf or not user.documents.passport or not user.addresses.exists or not user.contact_info.exists %}
+    <div>
+      <h4>Faltam os seguintes passos para começar a buscar propostas:</h4>
+      <ul class="list-group">
+        {% if not user.documents.crea %}
+        <li class="list-group-item">Dados do CREA</li>
+        {% endif %}
+        {% if not user.documents.rg %}
+        <li class="list-group-item">Dados do RG</li>
+        {% endif %}
+        {% if not user.documents.cpf %}
+        <li class="list-group-item">Dados do CPF</li>
+        {% endif %}
+        {% if not user.documents.passport %}
+        <li class="list-group-item">Dados do Passaporte</li>
+        {% endif %}
+        {% if not user.addresses.exists %}
+        <li class="list-group-item">Dados do Endereço</li>
+        {% endif %}
+        {% if not user.contact_info.exists %}
+        <li class="list-group-item">Dados de Contato</li>
+        {% endif %}
+      </ul>
+
+      <div class="d-flex gap-2 mt-3">
+        {% if not user.documents.crea or not user.documents.rg or not user.documents.cpf or not user.documents.passport %}
+        <a href="{% url 'upload_file' %}" class="btn btn-primary">Adicionar Documentos</a>
+        {% endif %}
+        {% if not user.addresses.exists or not user.contact_info.exists %}
+        <a href="{% url 'personal_info' %}" class="btn btn-primary">Adicionar Informações Pessoais</a>
+        {% endif %}
+      </div>
+    </div>
+    {% else %}
+    <div>
+      <h4>Você já possui todos os documentos e informações necessários para começar a buscar propostas!</h4>
+      <a href="{% url 'list_work_request' %}" class="btn btn-primary">Buscar Propostas</a>
+    </div>
+    {% endif %}
+  </main>
   {% else %}
-  <div class="">
-    <h4>Você já possui todos os documentos necessários para começar a buscar propostas!</h4>
-    <a href="{% url 'list_work_request' %}" class="btn btn-primary">Buscar Propostas</a>
+  <div class="text-center">
+    <p>Você não está logado</p>
+    <p>redirecionando...</p>
   </div>
   {% endif %}
-</main>
-{% else %}
-<p>Você não está logado</p>
-<p>redirecionando...</p>
-{% endif %}
-{% endblock %}
+</div>
+{% endblock content %}

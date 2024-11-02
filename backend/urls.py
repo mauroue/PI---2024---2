@@ -92,6 +92,7 @@ urlpatterns = [
         views.submit_proposal,
         name="submit_proposal",
     ),
+    path("personal-info/", views.personal_info, name="personal_info"),
 ]
 
 if settings.DEBUG:

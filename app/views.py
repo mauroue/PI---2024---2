@@ -15,6 +15,10 @@ from app.models.files import Files
 import logging
 from django.contrib.admin.views.decorators import staff_member_required
 from .forms.work_user_proposal_form import WorkUserProposalForm
+from app.forms.personal_info_form import PersonalInfoForm
+from app.models.address import Address
+from app.models.contact_info import ContactInfo
+from django.db.models import Exists, OuterRef
 
 logger = logging.getLogger(__name__)
 
@@ -230,3 +234,70 @@ def submit_proposal(request, work_request_id):
             proposal.save()
             return JsonResponse({"status": "success"})
     return JsonResponse({"status": "error"})
+
+
+@login_required
+def personal_info(request):
+    if request.method == "POST":
+        form = PersonalInfoForm(request.POST)
+        if form.is_valid():
+            try:
+                # Delete existing records before creating new ones
+                Address.objects.filter(user=request.user).delete()
+                ContactInfo.objects.filter(user=request.user).delete()
+
+                form.save(request.user)
+                messages.success(request, "✅ Informações salvas com sucesso!")
+                return redirect("personal_info")  # Stay on the same page
+            except Exception as e:
+                messages.error(
+                    request,
+                    "❌ Erro ao salvar informações. Por favor, tente novamente.",
+                )
+    else:
+        initial_data = {}
+        try:
+            address = request.user.addresses.first()
+            if address:
+                initial_data.update(
+                    {
+                        "address": address.address,
+                        "zipcode": address.zipcode,
+                        "city": address.city,
+                        "state": address.state,
+                    }
+                )
+        except Address.DoesNotExist:
+            pass
+
+        try:
+            contact_info = request.user.contact_info.first()
+            if contact_info:
+                initial_data.update(
+                    {
+                        "phone": contact_info.phone,
+                        "phone_alt": contact_info.phone_alt,
+                    }
+                )
+        except ContactInfo.DoesNotExist:
+            pass
+
+        form = PersonalInfoForm(initial=initial_data)
+
+    return render(request, "dashboard/user/personal_info.html", {"form": form})
+
+
+def admin_dashboard(request):
+    users = (
+        Profile.objects.filter(status="new")
+        .select_related("user", "user__documents")
+        .prefetch_related("user__addresses", "user__contact_info")
+    )
+
+    return render(
+        request,
+        "admin/dashboard.html",
+        {
+            "users": users,
+        },
+    )
