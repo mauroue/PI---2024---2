@@ -6,70 +6,91 @@
 <div class="container mt-4">
   <div class="row justify-content-center">
     <div class="col-md-6">
-      <h3 class="text-center mb-5">Envio de Documentos</h3>
+      <h3 class="text-center mb-3">Envio de Documentos</h3>
 
       <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
 
         <!-- CREA -->
+        {% with documents_uploaded.crea as uploaded %}
         <div class="mb-4">
-          <label class="form-label">CREA</label>
+          <label class="form-label">CREA {% if uploaded %}👍{% endif %} </label>
+          {% if not uploaded %}
           <div>
-            <button type="button" class="btn btn-outline-secondary w-100 mb-2"
+            <button type="button" class="btn w-100 mb-2 btn-outline-secondary"
               onclick="document.getElementById('id_crea').click()">
-              {% if documents_uploaded.crea %}Alterar arquivo{% else %}Escolher arquivo{% endif %}
+              Escolher arquivo
             </button>
             <input type="file" name="crea" id="id_crea" class="d-none">
           </div>
-          <input type="text" name="crea_number" class="form-control" placeholder="Número do CREA"
-            value="{{ form.crea_number.value|default:'' }}">
+          {% endif %}
+          <input {% if uploaded %}disabled{% endif %} type="text" name="crea_number" class="form-control"
+            id="id_crea_number" placeholder="Número do CREA" value="{{ form.crea_number.value|default:'' }}">
         </div>
+        {% endwith %}
 
         <!-- Passaporte -->
+        {% with documents_uploaded.passport as uploaded %}
         <div class="mb-4">
-          <label class="form-label">Passaporte</label>
+          <label class="form-label">Passaporte {% if uploaded %}👍{% endif %} </label>
+          {% if not uploaded %}
           <div>
-            <button type="button" class="btn btn-outline-secondary w-100 mb-2"
+            <button type="button"
+              class="btn w-100 mb-2 {% if uploaded %} btn-success {% else %} btn-outline-secondary {% endif %}"
               onclick="document.getElementById('id_passport').click()">
-              {% if documents_uploaded.passport %}Alterar arquivo{% else %}Escolher arquivo{% endif %}
+              Escolher arquivo
             </button>
             <input type="file" name="passport" id="id_passport" class="d-none">
           </div>
-          <input type="text" name="passport_number" class="form-control" placeholder="Número do Passaporte"
+          {% endif %}
+          <input {% if uploaded %}disabled{% endif %} type="text" name="passport_number" class="form-control"
+            id="id_passport_number" placeholder="Número do Passaporte"
             value="{{ form.passport_number.value|default:'' }}">
         </div>
+        {% endwith %}
 
         <!-- CPF -->
+        {% with documents_uploaded.cpf as uploaded %}
         <div class="mb-4">
-          <label class="form-label">CPF</label>
+          <label class="form-label">CPF {% if uploaded %}👍{% endif %} </label>
+          {% if not uploaded %}
           <div>
-            <button type="button" class="btn btn-outline-secondary w-100 mb-2"
+            <button type="button"
+              class="btn w-100 mb-2 {% if uploaded %} btn-success {% else %} btn-outline-secondary {% endif %}"
               onclick="document.getElementById('id_cpf').click()">
-              {% if documents_uploaded.cpf %}Alterar arquivo{% else %}Escolher arquivo{% endif %}
+              Escolher arquivo
             </button>
             <input type="file" name="cpf" id="id_cpf" class="d-none">
           </div>
-          <input type="text" name="cpf_number" class="form-control" placeholder="Número do CPF"
-            value="{{ form.cpf_number.value|default:'' }}">
+          {% endif %}
+          <input {% if uploaded %}disabled{% endif %} type="text" name="cpf_number" class="form-control"
+            id="id_cpf_number" placeholder="Número do CPF" value="{{ form.cpf_number.value|default:'' }}">
         </div>
+        {% endwith %}
 
         <!-- RG -->
+        {% with documents_uploaded.rg as uploaded %}
         <div class="mb-4">
-          <label class="form-label">RG</label>
+          <label class="form-label">RG {% if uploaded %}👍{% endif %} </label>
+          {% if not uploaded %}
           <div>
-            <button type="button" class="btn btn-outline-secondary w-100 mb-2"
+            <button type="button"
+              class="btn w-100 mb-2 {% if uploaded %} btn-success {% else %} btn-outline-secondary {% endif %}"
               onclick="document.getElementById('id_rg').click()">
-              {% if documents_uploaded.rg %}Alterar arquivo{% else %}Escolher arquivo{% endif %}
+              Escolher arquivo
             </button>
             <input type="file" name="rg" id="id_rg" class="d-none">
           </div>
-          <input type="text" name="rg_number" class="form-control" placeholder="Número do RG"
-            value="{{ form.rg_number.value|default:'' }}">
+          {% endif %}
+          <input {% if uploaded %}disabled{% endif %} type="text" name="rg_number" class="form-control"
+            id="id_rg_number" placeholder="Número do RG" value="{{ form.rg_number.value|default:'' }}">
         </div>
+        {% endwith %}
 
-        <div class="text-center mt-5">
-          <button type="submit" id="submitBtn" class="btn btn-secondary px-4" disabled>Enviar</button>
+        <div class="text-center">
+          <button type="submit" id="submitBtn" class="btn btn-primary px-4">Enviar</button>
         </div>
+        <div class="p-5"></div>
       </form>
     </div>
   </div>
@@ -139,15 +160,18 @@
     ];
 
     const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
 
     function checkForm() {
       let shouldEnable = true;
       let hasAnyFile = false;
 
       pairs.forEach(pair => {
-        console.log(pair)
         const fileInput = document.getElementById(pair.file);
         const numberInput = document.getElementById(pair.number);
+        if (!fileInput || !numberInput) {
+          return
+        }
 
         if (fileInput.files.length > 0) {
           hasAnyFile = true;
@@ -157,20 +181,20 @@
         }
       });
 
-      // Enable if either no files are selected, or all files have numbers
-      submitBtn.disabled = hasAnyFile ? !shouldEnable : false;
+      submitBtn.disabled = hasAnyFile ? !shouldEnable : true;
     }
 
-    // Add event listeners
     pairs.forEach(pair => {
       const fileInput = document.getElementById(pair.file);
       const numberInput = document.getElementById(pair.number);
+      if (!fileInput || !numberInput) {
+        return
+      }
 
       fileInput.addEventListener('change', checkForm);
       numberInput.addEventListener('input', checkForm);
     });
 
-    // Initial check
     checkForm();
   });
 </script>
