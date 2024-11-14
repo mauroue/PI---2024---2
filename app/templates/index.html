@@ -8,6 +8,26 @@
 <div class="hero-section">
     <div class="container">
         <div class="row">
+            <div class="acessibilidade">
+                <!-- Botões para aumentar ou diminuir a fonte -->
+                <button onclick="aumentarFonte()">Aumentar Fonte</button>
+                <button onclick="diminuirFonte()">Diminuir Fonte</button>
+                <script>
+                    function aumentarFonte() {
+                        let body = document.body;
+                        let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                        let currentSize = parseFloat(style);
+                        body.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
+                    }
+
+                    function diminuirFonte() {
+                        let body = document.body;
+                        let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                        let currentSize = parseFloat(style);
+                        body.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
+                    }
+                </script>
+            </div>
             <div class="col-md-8">
                 <h1>AWS Customer Support</h1>
                 <h2>Plataforma de Cadastro e Contratação de Mecânicos de Aeronaves</h2>

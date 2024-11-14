@@ -2,7 +2,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
-/* Reseta os estilos padrão do navegador */
+/* Reseta os estilos padrï¿½o do navegador */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@
     font-family: "Roboto Flex", sans-serif;
 }
 
-/* Contêiner principal */
+/* Contï¿½iner principal */
 .main-container {
     display: flex;
     flex-direction: column;
@@ -20,7 +20,7 @@
     background-color: #f0f0f0;
 }
 
-/* Barra de navegação */
+/* Barra de navegaï¿½ï¿½o */
 .nav-bar {
     width: calc(100% - 6rem);
     display: flex;
@@ -54,7 +54,7 @@
   text-decoration: none;
 }
 
-/* Conteúdo */
+/* Conteï¿½do */
 .content {
     display: flex;
     width: 80%;
@@ -86,7 +86,7 @@
     line-height: 1.6;
 }
 
-/* Área de login */
+/* ï¿½rea de login */
 .right-side {
     flex: 0.4;
     padding: 40px;
@@ -170,3 +170,27 @@
   font-size: 1.4rem;
 }
 
+/* Estilo para Acessibilidade */
+.acessibilidade button {
+    border: 2px solid blue; 
+    background-color: white; 
+    color: blue; 
+    padding: 10px 20px; /* Padding para deixar o botÃ£o maior */
+    font-size: 16px; /* Tamanho da fonte */
+    border-radius: 8px; /* Bordas arredondadas */
+    cursor: pointer; /* Muda o cursor para indicar que o botÃ£o Ã© clicÃ¡vel */
+    transition: background-color 0.3s, color 0.3s; /* TransiÃ§Ã£o suave para efeitos de hover */
+}
+
+/* Efeito de hover para quando o mouse passa sobre o botÃ£o */
+.acessibilidade button:hover {
+    background-color: blue; 
+    color: white; 
+}
+
+/* Efeito de focus para quando o botÃ£o Ã© focado (ex.: com teclado) */
+.acessibilidade button:focus {
+    outline: none; /* Remove o outline padrÃ£o */
+    box-shadow: 0 0 5px blue; /* Adiciona uma borda azul brilhante */
+}
+</style>
