@@ -14,10 +14,30 @@
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li><a href="{% url 'index' %}" class="nav-link px-2">Home</a></li>
-            <li><a href="{% url 'user_profile' %}" class="nav-link px-2">Perfil</a></li>
-            <li><a href="{% url 'personal_info' %}" class="nav-link px-2">Informações Pessoais</a></li>
-            <li><a href="#" class="nav-link px-2">Serviços</a></li>
-            <li><a href="#" class="nav-link px-2">Opções</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'user_profile' %}" class="nav-link px-2">Perfil</a></li>
+                <li><a href="{% url 'personal_info' %}" class="nav-link px-2">Informações Pessoais</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}" class="nav-link px-2">Login</a></li>
+            {% endif %}
+            <!-- Botões para aumentar ou diminuir a fonte -->
+            <button onclick="aumentarFonte()">Aumentar Fonte</button>
+            <button onclick="diminuirFonte()">Diminuir Fonte</button>
+            <script>
+                function aumentarFonte() {
+                    let body = document.body;
+                    let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                    let currentSize = parseFloat(style);
+                    body.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
+                }
+
+                function diminuirFonte() {
+                    let body = document.body;
+                    let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                    let currentSize = parseFloat(style);
+                    body.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
+                }
+            </script>
         </ul>
 
         <div class="col-md-3 text-end">
