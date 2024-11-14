@@ -18,31 +18,14 @@
                 <li><a href="{% url 'user_profile' %}" class="nav-link px-2">Perfil</a></li>
                 <li><a href="{% url 'personal_info' %}" class="nav-link px-2">Informações Pessoais</a></li>
             {% else %}
-                <li><a href="{% url 'login' %}" class="nav-link px-2">Perfil</a></li>
-                <li><a href="{% url 'login' %}" class="nav-link px-2">Informações Pessoais</a></li>
-                <script>
-                    // Garante que o script seja executado após o carregamento completo da página
-                    document.addEventListener("DOMContentLoaded", function() {
-                    // Adiciona comportamento ao botão "Perfil" para usuários não autenticados
-                    const perfilButton = document.getElementById('Perfil');
-                    if (perfilButton) {
-                        perfilButton.addEventListener('click', function(event) {
-                            event.preventDefault();  // Impede o redirecionamento padrão
-                            alert("Você não está logado. Faça login ou cadastre-se.");
-                            window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
-                        });
-                    }        
-                            // Adiciona comportamento ao botão "Informações Pessoais" para usuários não autenticados
-                    const informacoesButton = document.getElementById('Informações Pessoais');
-                    if (informacoesButton) {
-                        informacoesButton.addEventListener('click', function(event) {
-                            event.preventDefault();  // Impede o redirecionamento padrão
-                            alert("Você não está logado. Faça login ou cadastre-se.");
-                            window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
-                        });
-                    }
-                    });
-                 </script>
+                <li>
+                    <a href="{% url 'login' %}" class="nav-link px-2" 
+                       onclick="event.preventDefault(); alert('Você não está logado. Faça login ou cadastre-se.'); window.location.href='{% url 'login' %}';">Perfil</a>
+                </li>
+                <li>
+                    <a href="{% url 'login' %}" class="nav-link px-2" 
+                       onclick="event.preventDefault(); alert('Você não está logado. Faça login ou cadastre-se.'); window.location.href='{% url 'login' %}';">Informações Pessoais</a>
+                </li>
             {% endif %}
         </ul>
 
