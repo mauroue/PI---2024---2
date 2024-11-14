@@ -5,13 +5,14 @@
   <div class="container">
     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
       <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"
+                    src="{% static 'images/Logo-AWS-color.png' %}">
           <use xlink:href="#bootstrap"></use>
         </svg>
       </a>
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <li style="margin-right: 10px;"><a href="{% url 'list_work_request' %}" class="nav-link px-2 link-secondary" style="background-color: rgba(173, 216, 230, 0.5); border-radius: 8px;">Tarefas Disponíveis</a></li>
+        <li style="margin-right: 10px;"><a href="{% url 'list_work_request' %}" class="nav-link px-2 link-secondary" style="background-color: rgba(173, 216, 230, 0.5); border-radius: 8px; color: blue;">Tarefas Disponíveis</a></li>
         <li style="margin-right: 10px;"><a class="nav-link px-2 link-secondary" href="{% url 'user_profile' %}" style="background-color: rgba(173, 216, 230, 0.5); border-radius: 8px;">Perfil</a></li>
         <li style="margin-right: 10px;"><a class="nav-link px-2 link-secondary" href="{% url 'personal_info' %}" style="background-color: rgba(173, 216, 230, 0.5); border-radius: 8px;">Informações Pessoais</a></li>
       </ul>
