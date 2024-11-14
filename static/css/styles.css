@@ -171,6 +171,15 @@
 }
 
 /* Estilo para Acessibilidade */
+.acessibilidade {
+    position: fixed; 
+    top: 50%; 
+    right: 0; 
+    transform: translateY(-50%); 
+    padding: 10px; 
+    z-index: 1000; 
+}
+
 .acessibilidade button {
     border: 2px solid blue; 
     background-color: white; 
@@ -193,4 +202,3 @@
     outline: none; /* Remove o outline padrão */
     box-shadow: 0 0 5px blue; /* Adiciona uma borda azul brilhante */
 }
-</style>
