@@ -12,6 +12,8 @@
 
       <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
         <li><a href="{% url 'list_work_request' %}" class="nav-link px-2 link-secondary" style="background-color: rgba(173, 216, 230, 0.5);">Tarefas Disponíveis</a></li>
+        <li><a class="nav-link px-2 link-secondary" href="{% url 'user_profile' %}">Perfil</a></li>
+        <li><a class="nav-link px-2 link-secondary" href="{% url 'personal_info' %}">Informações Pessoais</a></li>
       </ul>
 
       <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
@@ -21,7 +23,7 @@
       <div class="dropdown text-end">
         <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
           data-bs-toggle="dropdown" aria-expanded="false">
-          <span style="position: absolute; top: -8px; left: 16px;" class="badge bg-danger">4</span>
+<!--           <span style="position: absolute; top: -8px; left: 16px;" class="badge bg-danger">0</span> -->
           {% if user.profile_image %}
           <img src="{{ user.profile_image.url }}" alt="user_profile" width="32" height="32" class="rounded-circle">
           {% else %}
@@ -30,11 +32,11 @@
           {% endif %}
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-          <li><a class="dropdown-item" href="#">Mensagens
+<!--           <li><a class="dropdown-item" href="#">Mensagens
               <span class="badge bg-danger">4</span>
             </a>
-          </li>
-          <li><a class="dropdown-item" href="{% url 'user_dashboard' %}">dashboard</a></li>
+          </li> -->
+          <li><a class="dropdown-item" href="{% url 'user_dashboard' %}">Dashboard</a></li>
           <li><a class="dropdown-item" href="{% url 'password_change' %}">Trocar senha</a></li>
           <li><a class="dropdown-item" href="{% url 'user_profile' %}">Perfil</a></li>
           <li><a class="dropdown-item" href="{% url 'personal_info' %}">Informações Pessoais</a></li>
