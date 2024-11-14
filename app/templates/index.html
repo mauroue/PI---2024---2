@@ -11,10 +11,10 @@
             <div class="acessibilidade">
                 <!-- Botões para aumentar ou diminuir a fonte -->
                 <button onclick="aumentarFonte()" 
-                style="border: 1px solid blue; 
+                style="border: 1px solid white; 
                        background-color: rgba(255, 255, 255, 0.726); 
-                       color: white; 
-                       padding: 8px 16px; 
+                       color: rgb(25, 118, 211); 
+                       padding: 6px 14px; 
                        font-size: 14px; 
                        border-radius: 8px; 
                        cursor: pointer; 
@@ -23,10 +23,10 @@
                 Aumentar Fonte
                 </button>
                 <button onclick="diminuirFonte()" 
-                        style="border: 2px solid blue; 
+                        style="border: 2px solid white; 
                             background-color: rgba(255, 255, 255, 0.726); 
-                            color: white; 
-                            padding: 8px 16px; 
+                            color: rgb(25, 118, 211); 
+                            padding: 6px 14px; 
                             font-size: 14px; 
                             border-radius: 8px; 
                             cursor: pointer; 
@@ -173,9 +173,9 @@
     }
 
     .hero-section .container .row .acessibilidade {
-        position: fixed;
+        position: absolute;
         top: 50%; 
-        left: 10px; 
+        right: 10px; 
         transform: translateY(-50%); 
         z-index: 1000; 
     }
