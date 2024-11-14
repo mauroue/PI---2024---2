@@ -20,31 +20,31 @@
             {% else %}
                 <li><a href="#" class="nav-link px-2">Perfil</a></li>
                 <li><a href="#" class="nav-link px-2">Informações Pessoais</a></li>
+                <script>
+                    // Garante que o script seja executado após o carregamento completo da página
+                    document.addEventListener("DOMContentLoaded", function() {
+                    // Adiciona comportamento ao botão "Perfil" para usuários não autenticados
+                    const perfilButton = document.getElementById('perfil');
+                    if (perfilButton) {
+                        perfilButton.addEventListener('click', function(event) {
+                            event.preventDefault();  // Impede o redirecionamento padrão
+                            alert("Você não está logado. Faça login ou cadastre-se.");
+                            window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
+                        });
+                    }        
+                            // Adiciona comportamento ao botão "Informações Pessoais" para usuários não autenticados
+                    const informacoesButton = document.getElementById('informacoes-pessoais');
+                    if (informacoesButton) {
+                        informacoesButton.addEventListener('click', function(event) {
+                            event.preventDefault();  // Impede o redirecionamento padrão
+                            alert("Você não está logado. Faça login ou cadastre-se.");
+                            window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
+                        });
+                    }
+                    });
+                 </script>
             {% endif %}
         </ul>
-        <script>
-            // Garante que o script seja executado após o carregamento completo da página
-            document.addEventListener("DOMContentLoaded", function() {
-                // Adiciona comportamento ao botão "Perfil" para usuários não autenticados
-                const perfilButton = document.getElementById('perfil');
-                if (perfilButton) {
-                    perfilButton.addEventListener('click', function(event) {
-                        event.preventDefault();  // Impede o redirecionamento padrão
-                        alert("Você não está logado. Faça login ou cadastre-se.");
-                        window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
-                    });
-                }        
-                // Adiciona comportamento ao botão "Informações Pessoais" para usuários não autenticados
-                const informacoesButton = document.getElementById('informacoes-pessoais');
-                if (informacoesButton) {
-                    informacoesButton.addEventListener('click', function(event) {
-                        event.preventDefault();  // Impede o redirecionamento padrão
-                        alert("Você não está logado. Faça login ou cadastre-se.");
-                        window.location.href = "{% url 'login' %}";  // Redireciona para a página de login
-                    });
-                }
-            });
-        </script>
 
         <div class="col-md-3 text-end">
             <a type="button" href="{% url 'login' %}" class="btn btn-outline-primary me-2">Login</a>
