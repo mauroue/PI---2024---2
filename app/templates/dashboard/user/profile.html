@@ -4,6 +4,50 @@
 {% block title %}Perfil do Usuário{% endblock %}
 
 {% block content %}
+
+<div class="acessibilidade">
+    <!-- Botões para aumentar ou diminuir a fonte -->
+    <button onclick="aumentarFonte()" 
+    style="border: 1px solid white; 
+           background-color: rgba(255, 255, 255, 0.726); 
+           color: rgb(25, 118, 211); 
+           padding: 6px 14px; 
+           font-size: 14px; 
+           border-radius: 8px; 
+           cursor: pointer; 
+           transition: background-color 0.3s, color 0.3s; 
+           margin-bottom: 10px;">
+    Aumentar Fonte
+    </button>
+    <button onclick="diminuirFonte()" 
+            style="border: 2px solid white; 
+                background-color: rgba(255, 255, 255, 0.726); 
+                color: rgb(25, 118, 211); 
+                padding: 6px 14px; 
+                font-size: 14px; 
+                border-radius: 8px; 
+                cursor: pointer; 
+                transition: background-color 0.3s, color 0.3s; 
+                margin-bottom: 10px;">
+        Diminuir Fonte
+    </button>
+    <script>
+        function aumentarFonte() {
+            let html = document.documentElement; 
+            let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
+            let currentSize = parseFloat(style);
+            html.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
+        }
+        
+        function diminuirFonte() {
+            let html = document.documentElement;
+            let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
+            let currentSize = parseFloat(style);
+            html.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
+        }                    
+    </script>
+</div>
+
 <div class="container mt-5 text-center">
     <div class="profile-image-container">
         {% if profile_image %}

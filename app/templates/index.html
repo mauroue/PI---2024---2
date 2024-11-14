@@ -36,18 +36,18 @@
                 </button>
                 <script>
                     function aumentarFonte() {
-                        let body = document.body;
-                        let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                        let html = document.documentElement; 
+                        let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
                         let currentSize = parseFloat(style);
-                        body.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
+                        html.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
                     }
-
+                    
                     function diminuirFonte() {
-                        let body = document.body;
-                        let style = window.getComputedStyle(body, null).getPropertyValue('font-size');
+                        let html = document.documentElement;
+                        let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
                         let currentSize = parseFloat(style);
-                        body.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
-                    }
+                        html.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
+                    }                    
                 </script>
             </div>
             <div class="col-md-8">
