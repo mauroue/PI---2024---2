@@ -10,8 +10,12 @@
         <div class="row">
             <div class="acessibilidade">
                 <!-- Botões para aumentar ou diminuir a fonte -->
-                <button onclick="aumentarFonte()">Aumentar Fonte</button>
-                <button onclick="diminuirFonte()">Diminuir Fonte</button>
+                <button onclick="aumentarFonte()" style="border: 2px solid blue; background-color: white; color: blue; padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, color 0.3s; margin-bottom: 10px;">
+                    Aumentar Fonte
+                </button>
+                <button onclick="diminuirFonte()" style="border: 2px solid blue; background-color: white; color: blue; padding: 10px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; transition: background-color 0.3s, color 0.3s; margin-bottom: 10px;">
+                    Diminuir Fonte
+                </button>
                 <script>
                     function aumentarFonte() {
                         let body = document.body;
