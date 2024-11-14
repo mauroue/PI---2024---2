@@ -4,6 +4,48 @@
 
 {% block content %}
 <div class="container mt-5">
+    <div class="acessibilidade">
+        <!-- Botões para aumentar ou diminuir a fonte -->
+        <button onclick="aumentarFonte()" 
+        style="border: 1px solid white; 
+               background-color: rgba(173, 216, 230, 0.5); 
+               color: rgb(25, 118, 211); 
+               padding: 6px 14px; 
+               font-size: 14px; 
+               border-radius: 8px; 
+               cursor: pointer; 
+               transition: background-color 0.3s, color 0.3s; 
+               margin-bottom: 10px;">
+        Aumentar Fonte
+        </button>
+        <button onclick="diminuirFonte()" 
+                style="border: 2px solid white; 
+                    background-color: rgba(173, 216, 230, 0.5); 
+                    color: rgb(25, 118, 211); 
+                    padding: 6px 14px; 
+                    font-size: 14px; 
+                    border-radius: 8px; 
+                    cursor: pointer; 
+                    transition: background-color 0.3s, color 0.3s; 
+                    margin-bottom: 10px;">
+            Diminuir Fonte
+        </button>
+        <script>
+            function aumentarFonte() {
+                let html = document.documentElement; 
+                let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
+                let currentSize = parseFloat(style);
+                html.style.fontSize = (currentSize + 1) + 'px';  // Aumenta a fonte em 1px
+            }
+            
+            function diminuirFonte() {
+                let html = document.documentElement;
+                let style = window.getComputedStyle(html, null).getPropertyValue('font-size');
+                let currentSize = parseFloat(style);
+                html.style.fontSize = (currentSize - 1) + 'px';  // Diminui a fonte em 1px
+            }                    
+        </script>
+    </div>
     <h2 class="text-center mb-4">Tarefas Disponíveis</h2>
     <table class="table table-striped">
         <thead>
@@ -83,5 +125,24 @@
         });
     });
 </script>
-
+<style>
+    <style>
+        .container mt-5 .acessibilidade {
+          position: fixed;
+          top: 20%;
+          left: 1050px;
+          transform: translateY(-50%); 
+      }
+      
+        .container mt-5 .acessibilidade button:hover {
+            background-color: blue; 
+            color: white;  
+        }
+      
+        .container mt-5 .acessibilidade button:focus {
+            outline: none; 
+            box-shadow: 0 0 5px blue;  
+        }
+      </style>
+</style>
 {% endblock %}
