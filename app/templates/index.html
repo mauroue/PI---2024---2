@@ -8,28 +8,12 @@
 <div class="hero-section">
     <div class="container">
         <div class="row">
-            <div class="acessibilidade" style="
-                .acessibilidade {
-                    position: fixed;
-                    top: 50%; 
-                    right: 10px;
-                    transform: translateY(-50%); 
-                    z-index: 1000;  
-                }
-            
-                .acessibilidade button:hover {
-                    background-color: blue;  
-                    color: white;  
-                }
-            
-                .acessibilidade button:focus {
-                    outline: none; 
-                    box-shadow: 0 0 5px blue;">
+            <div class="acessibilidade">
                 <!-- Botões para aumentar ou diminuir a fonte -->
                 <button onclick="aumentarFonte()" 
-                style="border: 2px solid blue; 
+                style="border: 1px solid blue; 
                        background-color: rgba(255, 255, 255, 0.726); 
-                       color: blue; 
+                       color: white; 
                        padding: 8px 16px; 
                        font-size: 14px; 
                        border-radius: 8px; 
@@ -41,7 +25,7 @@
                 <button onclick="diminuirFonte()" 
                         style="border: 2px solid blue; 
                             background-color: rgba(255, 255, 255, 0.726); 
-                            color: blue; 
+                            color: white; 
                             padding: 8px 16px; 
                             font-size: 14px; 
                             border-radius: 8px; 
@@ -187,6 +171,24 @@
             justify-content: center;
         }
     }
+
+    .hero-section .container .row .acessibilidade {
+        position: fixed;
+        top: 50%; 
+        left: 10px; 
+        transform: translateY(-50%); 
+        z-index: 1000; 
+    }
+    
+    .hero-section .container .row .acessibilidade button:hover {
+        background-color: blue; 
+        color: white;  
+    }
+    
+    .hero-section .container .row .acessibilidade button:focus {
+        outline: none; 
+        box-shadow: 0 0 5px blue;  
+    }    
 </style>
 {% endblock %}
 
